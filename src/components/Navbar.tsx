@@ -57,6 +57,9 @@ export default function Navbar() {
     return null;
   }
 
+  // Hide the currently active page from the mobile menu so all other navigation options are immediately accessible
+  const mobileNavItems = NAV_ITEMS.filter((item) => item.href !== pathname);
+
   return (
     <header
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
@@ -156,43 +159,34 @@ export default function Navbar() {
           />
 
           {/* Menu Drawer Content */}
-          <div className="relative z-10 bg-white border-b border-brand-100 shadow-2xl max-h-[calc(100dvh-65px)] overflow-y-auto px-4 pt-3 pb-8 space-y-2 animate-menu-slide">
-            {/* All Existing Navbar Items */}
+          <div className="relative z-10 bg-white border-b border-brand-100 shadow-2xl max-h-[75vh] overflow-y-auto px-4 pt-3 pb-6 space-y-2 animate-menu-slide">
+            {/* Other Navigation Items (Current active page is hidden) */}
             <div className="space-y-1">
-              {NAV_ITEMS.map((item) => {
-                const isActive = pathname === item.href;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center justify-between px-4 py-3.5 rounded-xl text-base font-medium transition-colors ${
-                      isActive
-                        ? "text-brand-900 bg-brand-50 font-semibold"
-                        : "text-zinc-700 hover:text-brand-900 hover:bg-brand-50/50"
-                    }`}
-                  >
-                    <span>{item.label}</span>
-                    <ChevronRight
-                      className={`w-4 h-4 transition-transform ${
-                        isActive ? "text-brand-800" : "text-zinc-400"
-                      }`}
-                    />
-                  </Link>
-                );
-              })}
+              {mobileNavItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-4 py-3.5 rounded-xl text-base font-medium text-zinc-800 hover:text-brand-900 hover:bg-brand-50/70 border border-transparent hover:border-brand-100 transition-colors"
+                >
+                  <span>{item.label}</span>
+                  <ChevronRight className="w-4 h-4 text-zinc-400" />
+                </Link>
+              ))}
             </div>
 
             {/* Action Buttons in Mobile Menu */}
-            <div className="pt-4 border-t border-zinc-100 flex flex-col gap-2.5">
-              <Link
-                href="/appointment"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-brand-800 hover:bg-brand-900 text-white font-semibold text-sm shadow-sm transition-colors"
-              >
-                <Calendar className="w-4 h-4" />
-                <span>Book an Appointment</span>
-              </Link>
+            <div className="pt-3 border-t border-zinc-100 flex flex-col gap-2">
+              {pathname !== "/appointment" && (
+                <Link
+                  href="/appointment"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-brand-800 hover:bg-brand-900 text-white font-semibold text-sm shadow-sm transition-colors"
+                >
+                  <Calendar className="w-4 h-4" />
+                  <span>Book an Appointment</span>
+                </Link>
+              )}
 
               <Link
                 href="/admin"
@@ -209,5 +203,6 @@ export default function Navbar() {
     </header>
   );
 }
+
 
 
