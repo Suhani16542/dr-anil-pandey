@@ -32,14 +32,8 @@ export default function Navbar() {
     setMobileMenuOpen(false);
   }, [pathname]);
 
-  // Lock body scroll when mobile menu is open & close on Escape key
+  // Handle Escape key
   useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setMobileMenuOpen(false);
@@ -48,10 +42,9 @@ export default function Navbar() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => {
-      document.body.style.overflow = "";
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [mobileMenuOpen]);
+  }, []);
 
   if (isAdminPage) {
     return null;
@@ -62,7 +55,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+      className={`sticky top-0 z-50 w-full relative transition-all duration-300 ${
         isScrolled
           ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-brand-100 py-3"
           : "bg-white/90 backdrop-blur-sm border-b border-zinc-100 py-3.5 sm:py-5"
@@ -134,7 +127,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen((prev) => !prev)}
-              className="p-2 min-h-[42px] min-w-[42px] flex items-center justify-center rounded-lg text-zinc-700 hover:text-brand-900 hover:bg-brand-50 border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-brand-600 transition-colors"
+              className="p-2 min-h-[42px] min-w-[42px] flex items-center justify-center rounded-lg text-zinc-700 hover:text-brand-900 hover:bg-brand-50 border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-brand-600 transition-colors cursor-pointer"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
             >
@@ -148,61 +141,62 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Responsive Mobile Menu Drawer */}
+      {/* Mobile Dropdown Menu (Overlays Hero Section) */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-[57px] sm:top-[65px] bottom-0 z-50 flex flex-col justify-start">
+        <>
           {/* Backdrop overlay */}
           <div
-            className="fixed inset-0 top-[57px] sm:top-[65px] bg-black/40 backdrop-blur-xs animate-overlay-fade"
+            className="lg:hidden fixed inset-0 top-0 left-0 right-0 bottom-0 bg-black/40 backdrop-blur-xs z-40 animate-overlay-fade"
             onClick={() => setMobileMenuOpen(false)}
             aria-hidden="true"
           />
 
-          {/* Menu Drawer Content */}
-          <div className="relative z-10 bg-white border-b border-brand-100 shadow-2xl max-h-[75vh] overflow-y-auto px-4 pt-3 pb-6 space-y-2 animate-menu-slide">
-            {/* Other Navigation Items (Current active page is hidden) */}
-            <div className="space-y-1">
+          {/* Dropdown panel directly underneath the header */}
+          <div className="lg:hidden absolute top-full left-0 right-0 w-full bg-white border-b border-brand-200/80 shadow-2xl z-50 max-h-[calc(100vh-80px)] overflow-y-auto animate-menu-slide">
+            <div className="px-4 py-3.5 space-y-1">
+              {/* Other Navigation Items */}
               {mobileNavItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between px-4 py-3.5 rounded-xl text-base font-medium text-zinc-800 hover:text-brand-900 hover:bg-brand-50/70 border border-transparent hover:border-brand-100 transition-colors"
+                  className="flex items-center justify-between px-3.5 py-3 rounded-lg text-base font-semibold text-zinc-800 hover:text-brand-900 hover:bg-brand-50/80 transition-colors"
                 >
                   <span>{item.label}</span>
                   <ChevronRight className="w-4 h-4 text-zinc-400" />
                 </Link>
               ))}
-            </div>
 
-            {/* Action Buttons in Mobile Menu */}
-            <div className="pt-3 border-t border-zinc-100 flex flex-col gap-2">
-              {pathname !== "/appointment" && (
+              {/* Action Buttons in Mobile Menu */}
+              <div className="pt-3 mt-2 border-t border-zinc-100 flex flex-col gap-2">
+                {pathname !== "/appointment" && (
+                  <Link
+                    href="/appointment"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-brand-800 hover:bg-brand-900 text-white font-semibold text-sm shadow-sm transition-colors"
+                  >
+                    <Calendar className="w-4 h-4" />
+                    <span>Book an Appointment</span>
+                  </Link>
+                )}
+
                 <Link
-                  href="/appointment"
+                  href="/admin"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-brand-800 hover:bg-brand-900 text-white font-semibold text-sm shadow-sm transition-colors"
+                  className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-100 text-brand-950 font-semibold text-xs border border-zinc-200 hover:bg-brand-50 transition-colors"
                 >
-                  <Calendar className="w-4 h-4" />
-                  <span>Book an Appointment</span>
+                  <Shield className="w-3.5 h-3.5 text-brand-700" />
+                  <span>Admin Dashboard Portal</span>
                 </Link>
-              )}
-
-              <Link
-                href="/admin"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-100 text-brand-950 font-semibold text-xs border border-zinc-200 hover:bg-brand-50 transition-colors"
-              >
-                <Shield className="w-3.5 h-3.5 text-brand-700" />
-                <span>Admin Dashboard Portal</span>
-              </Link>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   );
 }
+
 
 
 
