@@ -1,0 +1,8 @@
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="450" fill="#0D3829"/>
+  <rect x="30" y="30" width="740" height="390" rx="12" fill="#062319" stroke="#155E42" stroke-width="2"/>
+  <circle cx="400" cy="225" r="48" fill="#155E42" stroke="#48A883" stroke-width="3"/>
+  <polygon points="392,207 418,225 392,243" fill="#FFFFFF"/>
+  <text x="400" y="310" fill="#82CAA9" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" text-anchor="middle" letter-spacing="1">PROFESSIONAL VIDEO INTRODUCTION</text>
+  <text x="400" y="335" fill="#E3F4EC" opacity="0.6" font-family="system-ui, -apple-system, sans-serif" font-size="12" text-anchor="middle">Click to preview introduction player</text>
+</svg>

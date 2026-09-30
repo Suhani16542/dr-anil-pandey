@@ -1,0 +1,9 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#0D3829"/>
+  <circle cx="400" cy="230" r="110" fill="#155E42" stroke="#2B8A66" stroke-width="4"/>
+  <path d="M220 540C220 440.589 300.589 360 400 360C499.411 360 580 440.589 580 540V600H220V540Z" fill="#155E42" stroke="#2B8A66" stroke-width="4"/>
+  <rect x="250" y="20" width="300" height="40" rx="20" fill="#062319" opacity="0.6"/>
+  <text x="400" y="46" fill="#82CAA9" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" text-anchor="middle" letter-spacing="2">DR. ANIL PANDEY • PORTRAIT PLACEHOLDER</text>
+  <circle cx="400" cy="210" r="40" fill="#E3F4EC" opacity="0.9"/>
+  <path d="M340 310C340 276.863 366.863 250 400 250C433.137 250 460 276.863 460 310V330H340V310Z" fill="#E3F4EC" opacity="0.9"/>
+</svg>
