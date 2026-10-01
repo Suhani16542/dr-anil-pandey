@@ -9,7 +9,21 @@ import {
   ShieldCheck,
   Sparkles,
   Calendar,
+  Clock,
+  Video as VideoIcon,
+  ArrowRight,
+  User,
+  Phone,
+  Mail,
+  Stethoscope,
+  ChevronRight,
+  Lock,
+  Building2,
+  FileText,
+  HeartPulse,
+  Activity,
 } from "lucide-react";
+import ScrollReveal from "@/components/animations/ScrollReveal";
 import { SITE_NAME, CONSULTATION_OPTIONS, IMAGES, CONSULTATION_STEPS } from "@/data/siteData";
 
 export default function ConsultationPage() {
@@ -65,7 +79,9 @@ export default function ConsultationPage() {
 
       setIsBooked(true);
     } catch (err: unknown) {
-      setErrorMessage(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      setErrorMessage(
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -77,522 +93,480 @@ export default function ConsultationPage() {
     setClientInfo({ name: "", phone: "", email: "", notes: "" });
   };
 
+  const getModeIcon = (id: string) => {
+    switch (id) {
+      case "online-video":
+        return <VideoIcon className="w-6 h-6 text-brand-600" />;
+      case "second-opinion":
+        return <FileText className="w-6 h-6 text-brand-600" />;
+      default:
+        return <Stethoscope className="w-6 h-6 text-brand-600" />;
+    }
+  };
+
+  const currentOptionData =
+    CONSULTATION_OPTIONS.find((opt) => opt.id === selectedOption) ||
+    CONSULTATION_OPTIONS[0];
+
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* 1. Full-Width Hero Banner */}
-      <section className="relative py-20 lg:py-28 overflow-hidden">
-        <div className="absolute inset-0 -z-30 w-full h-full">
-          <Image
-            src={IMAGES.consultationHero}
-            alt="Doctor Consultation Booking"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center w-full h-full"
-          />
-        </div>
-        <div
-          className="absolute inset-0 -z-20 bg-gradient-to-r from-brand-950/88 via-brand-950/70 to-brand-900/50"
-          aria-hidden="true"
-        />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-white">
-          <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-950/85 border border-brand-400/50 text-brand-200 text-xs sm:text-sm font-semibold backdrop-blur-md shadow-lg">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
-              <span>Personalized Healthcare Protocols</span>
+    <div className="flex flex-col min-h-screen bg-slate-50/40">
+      {/* 1. COMPACT LIGHT PAGE HEADER */}
+      <section className="pt-8 pb-6 sm:pt-10 sm:pb-8 bg-gradient-to-b from-brand-50/50 via-white to-slate-50/30 border-b border-brand-100/70">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
+          <ScrollReveal animation="fade-down">
+            {/* Breadcrumb Navigation */}
+            <div className="flex items-center justify-center gap-1.5 text-xs text-zinc-500 font-medium mb-1">
+              <Link href="/" className="hover:text-brand-700 transition-colors">
+                Home
+              </Link>
+              <ChevronRight className="w-3.5 h-3.5 text-zinc-400" />
+              <span className="text-brand-700 font-semibold">Consultation Booking</span>
             </div>
-            <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white drop-shadow-lg [text-shadow:_0_2px_12px_rgba(0,0,0,0.8)]">
-              Consultation Booking
+
+            {/* Eyebrow Badge */}
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 border border-brand-200/90 text-brand-800 text-xs font-semibold tracking-wide shadow-2xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-500 animate-pulse-ring" />
+              <Sparkles className="w-3.5 h-3.5 text-brand-600" />
+              <span>Personalized Clinical Consultation</span>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal animation="fade-up" delay={100}>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-brand-950 leading-tight">
+              Book a Consultation with <span className="text-brand-600">{SITE_NAME}</span>
             </h1>
-            <p className="text-base sm:text-xl text-brand-100/95 leading-relaxed drop-shadow-md font-medium [text-shadow:_0_1px_6px_rgba(0,0,0,0.7)]">
-              Choose your consultation mode, pick a preferred schedule, and receive dedicated one-on-one medical reviews from {SITE_NAME}.
+          </ScrollReveal>
+
+          <ScrollReveal animation="fade-up" delay={150}>
+            <p className="text-xs sm:text-sm text-zinc-600 max-w-xl mx-auto leading-relaxed font-normal">
+              Select your consultation format, pick an available appointment slot, and receive
+              dedicated, evidence-guided medical attention tailored to your needs.
             </p>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* 2. Consultation Introduction (Large Image + Detailed Content) */}
-      <section className="py-20 lg:py-28 bg-white border-b border-brand-100/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            {/* Left: Large Consultation Photo */}
-            <div className="lg:col-span-5">
-              <div className="relative rounded-2xl overflow-hidden bg-brand-950 border-2 border-brand-300 shadow-2xl">
-                <div className="relative aspect-[4/5] w-full">
-                  <Image
-                    src={IMAGES.consultationIntro}
-                    alt="Clinical Consultation Review"
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 42vw"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-950/90 via-transparent to-transparent" />
-                </div>
-                <div className="p-5 bg-brand-950 text-white space-y-1">
-                  <div className="font-bold text-base">Comprehensive Medical Dialogues</div>
-                  <div className="text-xs text-brand-300">Dedicated patient evaluations</div>
-                </div>
+      {/* 2. STANDALONE SECTION: SELECT CONSULTATION MODE (Alag Section) */}
+      <section className="py-10 sm:py-14 bg-white border-b border-brand-100/60">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          <div className="max-w-2xl mx-auto text-center space-y-2">
+            <ScrollReveal animation="fade-down">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 text-brand-900 text-xs font-semibold uppercase tracking-wider border border-brand-200 shadow-2xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-600" />
+                <span>Step 1 of 2</span>
               </div>
-            </div>
+            </ScrollReveal>
 
-            {/* Right: Detailed Text */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-md bg-brand-100 text-brand-900 text-xs font-semibold uppercase tracking-wider border border-brand-200">
-                Consultation Experience
-              </div>
-
-              <h2 className="text-3xl sm:text-4xl font-bold text-brand-950">
-                Focused Clinical Review Tailored to You
+            <ScrollReveal animation="fade-up" delay={100}>
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-brand-950">
+                Select Your Consultation Mode
               </h2>
+            </ScrollReveal>
 
-              <div className="space-y-4 text-base sm:text-lg text-zinc-600 leading-relaxed">
-                <p>
-                  A medical consultation with Dr. Anil Pandey provides a structured, supportive space to explore symptoms, evaluate past diagnostic tests, and establish evidence-guided healthcare pathways.
-                </p>
-                <p>
-                  Consultations are never rushed. Every session is designed to listen to patient concerns, clarify test interpretations in plain terms, and provide actionable medical recommendations.
-                </p>
-                <p>
-                  Whether you choose an in-person chamber consultation or a remote digital session, you receive the same rigorous standard of clinical attention and follow-up support.
-                </p>
-              </div>
-
-              <div className="pt-2 flex flex-wrap gap-4 text-xs font-semibold text-brand-900">
-                <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-50 border border-brand-200">
-                  <CheckCircle2 className="w-4 h-4 text-brand-700" />
-                  30–45 Minute Focused Slots
-                </span>
-                <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-50 border border-brand-200">
-                  <CheckCircle2 className="w-4 h-4 text-brand-700" />
-                  Detailed Report Assessments
-                </span>
-                <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-50 border border-brand-200">
-                  <CheckCircle2 className="w-4 h-4 text-brand-700" />
-                  Structured Prescription Review
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Consultation Process (Step-by-Step 01 - 04) */}
-      <section className="py-20 lg:py-28 bg-brand-50/40 border-b border-brand-100/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-          <div className="max-w-3xl mx-auto text-center space-y-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-md bg-brand-100 text-brand-900 text-xs font-semibold uppercase tracking-wider border border-brand-200">
-              Process
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-brand-950">
-              The 4-Step Consultation Journey
-            </h2>
-            <p className="text-zinc-600 text-base">
-              A transparent, streamlined workflow ensuring thorough clinical preparation and personalized follow-up.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {CONSULTATION_STEPS.map((step) => (
-              <div
-                key={step.step}
-                className="bg-white rounded-2xl p-7 border border-brand-200 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between"
-              >
-                <div>
-                  <div className="text-3xl font-black text-brand-800 mb-4">
-                    {step.step}
-                  </div>
-                  <h3 className="text-lg font-bold text-brand-950 mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Consultation Experience (Alternating Editorial Blocks) */}
-      <section className="py-20 lg:py-28 bg-white border-b border-brand-100/60 space-y-20 lg:space-y-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20 lg:space-y-28">
-          {/* Editorial Block 1: Left Image, Right Text */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-6">
-              <div className="relative rounded-2xl overflow-hidden bg-brand-950 border-2 border-brand-200 shadow-xl group">
-                <div className="relative aspect-[16/11] w-full">
-                  <Image
-                    src={IMAGES.consultationExp1}
-                    alt="In-Person Clinical Evaluation"
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-950/80 via-transparent to-transparent" />
-                </div>
-                <div className="absolute bottom-4 left-4 right-4 text-white">
-                  <div className="text-xs font-bold text-emerald-300">Chamber Experience</div>
-                  <div className="text-base font-bold">Comprehensive In-Person Clinical Review</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-6 space-y-5">
-              <span className="text-xs font-bold text-brand-700 uppercase tracking-wider">
-                Format 01 • Clinic Visits
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-bold text-brand-950">
-                In-Person Consultations with Diagnostic Depth
-              </h3>
-              <p className="text-base text-zinc-600 leading-relaxed">
-                Direct physical examinations, review of diagnostic imaging, and face-to-face evaluations conducted in a calm, modern clinical setting.
+            <ScrollReveal animation="fade-up" delay={150}>
+              <p className="text-xs sm:text-sm text-zinc-600">
+                Click to choose the consultation format that best matches your healthcare requirements.
               </p>
-              <ul className="space-y-2 text-sm text-zinc-700">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-brand-700" />
-                  <span>Hands-on clinical assessment and vitals check</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-brand-700" />
-                  <span>Direct examination of physical diagnostic scans</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-brand-700" />
-                  <span>Interactive discussion with family members or caregivers</span>
-                </li>
-              </ul>
-            </div>
+            </ScrollReveal>
           </div>
 
-          {/* Editorial Block 2: Right Image, Left Text (Reversed) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-6 order-2 lg:order-1 space-y-5">
-              <span className="text-xs font-bold text-brand-700 uppercase tracking-wider">
-                Format 02 • Digital Care
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-bold text-brand-950">
-                Remote Video Consultations &amp; Second Opinions
-              </h3>
-              <p className="text-base text-zinc-600 leading-relaxed">
-                Access specialist medical advice from the comfort of your home. Ideal for follow-ups, remote triage, outstation patients, and second opinion reviews.
-              </p>
-              <ul className="space-y-2 text-sm text-zinc-700">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-brand-700" />
-                  <span>Secure, encrypted high-definition video link</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-brand-700" />
-                  <span>Digital review of uploaded reports and lab investigations</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-brand-700" />
-                  <span>Convenient scheduling for out-of-city patients</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="lg:col-span-6 order-1 lg:order-2">
-              <div className="relative rounded-2xl overflow-hidden bg-brand-950 border-2 border-brand-200 shadow-xl group">
-                <div className="relative aspect-[16/11] w-full">
-                  <Image
-                    src={IMAGES.consultationExp2}
-                    alt="Digital Healthcare Consultation"
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-950/80 via-transparent to-transparent" />
-                </div>
-                <div className="absolute bottom-4 left-4 right-4 text-white">
-                  <div className="text-xs font-bold text-emerald-300">Remote Consultation</div>
-                  <div className="text-base font-bold">Secure Digital Medical Guidance</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Main Consultation Booking Form */}
-      <section className="py-20 lg:py-28 bg-brand-50/40 border-b border-brand-100/60">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-3 mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-brand-950">
-              Schedule Your Consultation
-            </h2>
-            <p className="text-zinc-600 text-sm sm:text-base">
-              Choose your format, preferred time slot, and submit your contact information.
-            </p>
-          </div>
-
-          {errorMessage && (
-            <div className="mb-8 p-4 rounded-xl bg-red-50 border border-red-200 text-red-800 text-sm flex items-start gap-3">
-              <Info className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
-              <div>
-                <span className="font-bold">Booking Error:</span> {errorMessage}
-              </div>
-            </div>
-          )}
-
-          {isBooked ? (
-            /* Confirmation Feedback */
-            <div className="rounded-2xl border-2 border-brand-300 bg-white p-8 sm:p-12 text-center space-y-6 shadow-xl">
-              <div className="w-16 h-16 rounded-full bg-brand-100 text-brand-800 mx-auto flex items-center justify-center">
-                <CheckCircle2 className="w-10 h-10" />
-              </div>
-              <div className="space-y-2 max-w-md mx-auto">
-                <h2 className="text-2xl font-bold text-brand-950">
-                  Consultation Booking Confirmed
-                </h2>
-                <p className="text-sm text-zinc-600">
-                  Thank you, <span className="font-semibold">{clientInfo.name || "Patient"}</span>. Your consultation booking has been recorded in the clinic database and assigned for confirmation.
-                </p>
-              </div>
-
-              <div className="p-5 rounded-xl bg-brand-50/60 border border-brand-200 text-xs text-left max-w-md mx-auto space-y-2 text-zinc-700">
-                <div><strong>Consultation Mode:</strong> {selectedOption}</div>
-                <div><strong>Selected Date:</strong> {selectedDate || "Next Available"}</div>
-                <div><strong>Selected Slot:</strong> {selectedTimeSlot}</div>
-                <div><strong>Contact:</strong> {clientInfo.phone || "N/A"} | {clientInfo.email || "N/A"}</div>
-              </div>
-
-              <button
-                type="button"
-                onClick={handleReset}
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-brand-800 hover:bg-brand-900 text-white text-sm font-semibold shadow transition-colors cursor-pointer"
-              >
-                <span>Book Another Consultation</span>
-              </button>
-            </div>
-          ) : (
-            <div className="rounded-2xl border-2 border-brand-200 bg-white p-6 sm:p-10 shadow-xl">
-              <form onSubmit={handleBookingSubmit} className="space-y-10">
-                {/* Format Picker */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-bold text-brand-950 flex items-center gap-2 pb-2 border-b border-zinc-100">
-                    <span className="w-6 h-6 rounded-full bg-brand-800 text-white text-xs font-bold flex items-center justify-center">1</span>
-                    <span>Select Consultation Mode</span>
-                  </h3>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {CONSULTATION_OPTIONS.map((opt) => {
-                      const isSelected = selectedOption === opt.id;
-                      return (
+          {/* 3 Spacious Mode Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+            {CONSULTATION_OPTIONS.map((opt, idx) => {
+              const isSelected = selectedOption === opt.id;
+              return (
+                <ScrollReveal key={opt.id} animation="fade-up" delay={idx * 100}>
+                  <div
+                    onClick={() => {
+                      setSelectedOption(opt.id);
+                    }}
+                    className={`cursor-pointer rounded-2xl p-6 border-2 transition-all duration-300 flex flex-col justify-between h-full group ${
+                      isSelected
+                        ? "border-brand-600 bg-brand-50/50 shadow-md ring-2 ring-brand-600/20 scale-[1.01]"
+                        : "border-zinc-200 bg-white hover:border-brand-300 hover:shadow-sm"
+                    }`}
+                  >
+                    <div>
+                      {/* Top Badges & Icon */}
+                      <div className="flex items-center justify-between mb-4">
                         <div
-                          key={opt.id}
-                          onClick={() => setSelectedOption(opt.id)}
-                          className={`cursor-pointer rounded-2xl p-5 border-2 transition-all flex flex-col justify-between ${
+                          className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors ${
                             isSelected
-                              ? "border-brand-700 bg-brand-50/70 shadow-md ring-2 ring-brand-700/20"
-                              : "border-zinc-200 bg-white hover:border-brand-300"
+                              ? "bg-brand-600 text-white shadow-xs"
+                              : "bg-brand-50 text-brand-700 group-hover:bg-brand-100"
                           }`}
                         >
-                          <div>
-                            <div className="flex items-center justify-between mb-3">
-                              <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-brand-100 text-brand-800">
-                                {opt.badge}
-                              </span>
-                              <span className="text-xs text-zinc-500 font-medium">
-                                {opt.duration}
-                              </span>
-                            </div>
-                            <h4 className="text-base font-bold text-brand-950 mb-1.5">{opt.title}</h4>
-                            <p className="text-xs text-zinc-600 leading-relaxed">{opt.description}</p>
-                          </div>
-                          <div className="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between text-xs font-semibold">
-                            <span className={isSelected ? "text-brand-800" : "text-zinc-500"}>
-                              {isSelected ? "Selected" : "Select Option"}
-                            </span>
-                            <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${isSelected ? "border-brand-700 bg-brand-700" : "border-zinc-300"}`}>
-                              {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                            </div>
+                          {getModeIcon(opt.id)}
+                        </div>
+                        <div className="text-right">
+                          <span className="text-[11px] font-bold px-2.5 py-1 rounded-md bg-brand-100/80 text-brand-900">
+                            {opt.badge}
+                          </span>
+                          <div className="text-[11px] text-zinc-500 font-medium mt-1">
+                            {opt.duration}
                           </div>
                         </div>
-                      );
-                    })}
-                  </div>
-                </div>
+                      </div>
 
-                {/* Date & Slot Picker */}
-                <div className="space-y-4 pt-2">
-                  <h3 className="text-lg font-bold text-brand-950 flex items-center gap-2 pb-2 border-b border-zinc-100">
-                    <span className="w-6 h-6 rounded-full bg-brand-800 text-white text-xs font-bold flex items-center justify-center">2</span>
-                    <span>Date &amp; Time Window</span>
-                  </h3>
-
-                  <div className="grid grid-cols-1 md:grid-cols-12 gap-6 bg-brand-50/40 p-6 rounded-2xl border border-brand-200">
-                    <div className="md:col-span-5 space-y-2">
-                      <label htmlFor="consultDate" className="block text-xs font-semibold text-zinc-700 uppercase tracking-wider">
-                        Preferred Date <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="date"
-                        id="consultDate"
-                        required
-                        value={selectedDate}
-                        onChange={(e) => setSelectedDate(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-zinc-300 bg-white focus:border-brand-700 focus:ring-2 focus:ring-brand-100 outline-none text-sm text-zinc-900"
-                      />
+                      {/* Title & Description */}
+                      <h3 className="text-base sm:text-lg font-bold text-brand-950 mb-2 leading-snug">
+                        {opt.title}
+                      </h3>
+                      <p className="text-xs text-zinc-600 leading-relaxed font-normal">
+                        {opt.description}
+                      </p>
                     </div>
 
-                    <div className="md:col-span-7 space-y-2">
-                      <label className="block text-xs font-semibold text-zinc-700 uppercase tracking-wider">
-                        Available Windows <span className="text-red-500">*</span>
-                      </label>
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                        {availableSlots.map((slot) => {
-                          const isChosen = selectedTimeSlot === slot;
-                          return (
-                            <button
-                              type="button"
-                              key={slot}
-                              onClick={() => setSelectedTimeSlot(slot)}
-                              className={`py-2 px-2 text-xs font-medium rounded-lg border text-center transition-all cursor-pointer ${
-                                isChosen
-                                  ? "bg-brand-800 text-white border-brand-800 font-bold shadow-sm"
-                                  : "bg-white text-zinc-700 border-zinc-200 hover:border-brand-300"
-                              }`}
-                            >
-                              {slot}
-                            </button>
-                          );
-                        })}
+                    {/* Bottom Selected Indicator */}
+                    <div className="mt-5 pt-3.5 border-t border-zinc-100 flex items-center justify-between text-xs font-bold">
+                      <span className={isSelected ? "text-brand-800" : "text-zinc-500"}>
+                        {isSelected ? "Selected Mode" : "Click to Select"}
+                      </span>
+                      <div
+                        className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
+                          isSelected
+                            ? "border-brand-600 bg-brand-600 text-white"
+                            : "border-zinc-300 group-hover:border-brand-400"
+                        }`}
+                      >
+                        {isSelected && <CheckCircle2 className="w-3.5 h-3.5" />}
                       </div>
                     </div>
                   </div>
+                </ScrollReveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 3. STANDALONE SECTION: CONSULTATION FORM (Alag Form Section) */}
+      <section id="booking-form" className="py-10 sm:py-16 bg-slate-50/70 border-b border-brand-100/60">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          <div className="text-center space-y-1.5">
+            <ScrollReveal animation="fade-down">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-brand-900 text-xs font-semibold uppercase tracking-wider border border-brand-200 shadow-2xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-600" />
+                <span>Step 2 of 2</span>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal animation="fade-up" delay={100}>
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-brand-950">
+                Complete Your Booking Details
+              </h2>
+            </ScrollReveal>
+
+            <ScrollReveal animation="fade-up" delay={150}>
+              <p className="text-xs sm:text-sm text-zinc-600">
+                You are booking for:{" "}
+                <strong className="text-brand-900 font-bold underline">
+                  {currentOptionData.title}
+                </strong>
+              </p>
+            </ScrollReveal>
+          </div>
+
+          <ScrollReveal animation="fade-up" delay={200}>
+            <div className="bg-white rounded-2xl border border-brand-200/90 shadow-lg p-5 sm:p-8 lg:p-10 relative">
+              {/* Card Header with Selected Option Highlight */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-6 border-b border-zinc-100 gap-2">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-xl bg-brand-50 border border-brand-200 flex items-center justify-center text-brand-700">
+                    <Stethoscope className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm sm:text-base font-bold text-brand-950">
+                      {currentOptionData.title}
+                    </h3>
+                    <p className="text-[11px] text-zinc-500">
+                      Duration: {currentOptionData.duration} | {currentOptionData.badge}
+                    </p>
+                  </div>
                 </div>
+                <div className="inline-flex items-center gap-1 text-[11px] font-semibold text-brand-800 bg-brand-50 px-3 py-1 rounded-full border border-brand-200 self-start sm:self-auto">
+                  <ShieldCheck className="w-3.5 h-3.5 text-accent-600" />
+                  <span>Confidential Booking</span>
+                </div>
+              </div>
 
-                {/* Patient Information Fields */}
-                <div className="space-y-4 pt-2">
-                  <h3 className="text-lg font-bold text-brand-950 flex items-center gap-2 pb-2 border-b border-zinc-100">
-                    <span className="w-6 h-6 rounded-full bg-brand-800 text-white text-xs font-bold flex items-center justify-center">3</span>
-                    <span>Patient Details &amp; Notes</span>
-                  </h3>
+              {errorMessage && (
+                <div className="mb-5 p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs flex items-start gap-2.5 shadow-2xs">
+                  <Info className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-bold">Booking Error:</span> {errorMessage}
+                  </div>
+                </div>
+              )}
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div className="space-y-1.5">
-                      <label htmlFor="clientName" className="block text-xs font-semibold text-zinc-700 uppercase tracking-wider">
-                        Full Name <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="clientName"
-                        required
-                        placeholder="e.g. S. Verma"
-                        value={clientInfo.name}
-                        onChange={(e) => setClientInfo({ ...clientInfo, name: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brand-700 focus:ring-2 focus:ring-brand-100 outline-none text-sm text-zinc-900"
-                      />
+              {isBooked ? (
+                /* Success Feedback State */
+                <div className="rounded-xl border border-brand-200 bg-brand-50/70 p-6 sm:p-10 text-center space-y-4 shadow-sm">
+                  <div className="w-14 h-14 rounded-full bg-brand-600 text-white mx-auto flex items-center justify-center shadow-md">
+                    <CheckCircle2 className="w-8 h-8 text-white" />
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="text-xl font-extrabold text-brand-950">
+                      Consultation Booking Recorded!
+                    </h3>
+                    <p className="text-xs sm:text-sm text-zinc-600 max-w-md mx-auto leading-relaxed">
+                      Thank you, <span className="font-bold text-brand-900">{clientInfo.name}</span>. Your consultation slot has been registered. Our clinic desk will reach out with session instructions.
+                    </p>
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-white border border-brand-200 text-xs text-left max-w-sm mx-auto space-y-1.5 text-zinc-700 shadow-2xs">
+                    <div className="font-bold text-brand-900 border-b border-zinc-100 pb-1.5 flex items-center justify-between">
+                      <span>Booking Summary</span>
+                      <span className="text-[10px] text-accent-600 font-semibold">Status: Slot Reserved</span>
                     </div>
+                    <div><strong>Selected Mode:</strong> {currentOptionData.title}</div>
+                    <div><strong>Date:</strong> {selectedDate || "Next Available"}</div>
+                    <div><strong>Time Slot:</strong> {selectedTimeSlot}</div>
+                    <div><strong>Patient Name:</strong> {clientInfo.name}</div>
+                    <div><strong>Contact Phone:</strong> {clientInfo.phone}</div>
+                  </div>
 
-                    <div className="space-y-1.5">
-                      <label htmlFor="clientPhone" className="block text-xs font-semibold text-zinc-700 uppercase tracking-wider">
-                        Phone Number <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="tel"
-                        id="clientPhone"
-                        required
-                        placeholder="+91 98765 43210"
-                        value={clientInfo.phone}
-                        onChange={(e) => setClientInfo({ ...clientInfo, phone: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brand-700 focus:ring-2 focus:ring-brand-100 outline-none text-sm text-zinc-900"
-                      />
-                    </div>
+                  <button
+                    type="button"
+                    onClick={handleReset}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs sm:text-sm font-semibold shadow-sm transition-all hover:shadow-md cursor-pointer"
+                  >
+                    <span>Book Another Consultation</span>
+                  </button>
+                </div>
+              ) : (
+                /* Booking Form */
+                <form onSubmit={handleBookingSubmit} className="space-y-5">
+                  {/* Date & Time Slot Picker */}
+                  <div className="space-y-2.5">
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-brand-900 flex items-center gap-1.5 pb-1 border-b border-brand-50">
+                      <Calendar className="w-3.5 h-3.5 text-accent-600" />
+                      <span>Select Preferred Date &amp; Time Slot <span className="text-accent-600">*</span></span>
+                    </h4>
 
-                    <div className="space-y-1.5">
-                      <label htmlFor="clientEmail" className="block text-xs font-semibold text-zinc-700 uppercase tracking-wider">
-                        Email Address <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="email"
-                        id="clientEmail"
-                        required
-                        placeholder="patient@example.com"
-                        value={clientInfo.email}
-                        onChange={(e) => setClientInfo({ ...clientInfo, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brand-700 focus:ring-2 focus:ring-brand-100 outline-none text-sm text-zinc-900"
-                      />
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-3.5 bg-slate-50/60 p-3.5 rounded-xl border border-brand-100">
+                      <div className="sm:col-span-5 space-y-1">
+                        <label
+                          htmlFor="consultDate"
+                          className="block text-[11px] font-bold text-zinc-700 uppercase tracking-wider"
+                        >
+                          Preferred Date <span className="text-accent-600">*</span>
+                        </label>
+                        <input
+                          type="date"
+                          id="consultDate"
+                          required
+                          value={selectedDate}
+                          onChange={(e) => setSelectedDate(e.target.value)}
+                          className="w-full px-3 py-2 rounded-lg border border-zinc-300 bg-white focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 outline-none text-xs text-zinc-900 shadow-2xs font-medium"
+                        />
+                      </div>
+
+                      <div className="sm:col-span-7 space-y-1">
+                        <label className="block text-[11px] font-bold text-zinc-700 uppercase tracking-wider">
+                          Available Consultation Slots <span className="text-accent-600">*</span>
+                        </label>
+                        <div className="grid grid-cols-4 gap-1.5">
+                          {availableSlots.map((slot) => {
+                            const isChosen = selectedTimeSlot === slot;
+                            return (
+                              <button
+                                type="button"
+                                key={slot}
+                                onClick={() => setSelectedTimeSlot(slot)}
+                                className={`py-1.5 px-1 text-[10px] font-semibold rounded-md border text-center transition-all cursor-pointer ${
+                                  isChosen
+                                    ? "bg-brand-600 text-white border-brand-600 shadow-2xs font-bold"
+                                    : "bg-white text-zinc-700 border-zinc-200 hover:border-brand-300 hover:bg-brand-50/50"
+                                }`}
+                              >
+                                {slot}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="space-y-1.5 pt-2">
-                    <label htmlFor="clientNotes" className="block text-xs font-semibold text-zinc-700 uppercase tracking-wider">
-                      Medical Inquiries / Existing Conditions / Symptoms
+                  {/* Patient Information */}
+                  <div className="space-y-2.5 pt-1">
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-brand-900 flex items-center gap-1.5 pb-1 border-b border-brand-50">
+                      <User className="w-3.5 h-3.5 text-accent-600" />
+                      <span>Patient Contact Details <span className="text-accent-600">*</span></span>
+                    </h4>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                      <div className="space-y-1">
+                        <label
+                          htmlFor="clientName"
+                          className="block text-[11px] font-bold text-zinc-700 uppercase tracking-wider"
+                        >
+                          Full Name <span className="text-accent-600">*</span>
+                        </label>
+                        <div className="relative">
+                          <User className="w-4 h-4 text-zinc-400 absolute left-3 top-2.5" />
+                          <input
+                            type="text"
+                            id="clientName"
+                            required
+                            placeholder="e.g. S. Verma"
+                            value={clientInfo.name}
+                            onChange={(e) =>
+                              setClientInfo({ ...clientInfo, name: e.target.value })
+                            }
+                            className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-zinc-300 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 outline-none text-xs text-zinc-900 bg-slate-50/40 focus:bg-white transition-all shadow-2xs font-medium"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-1">
+                        <label
+                          htmlFor="clientPhone"
+                          className="block text-[11px] font-bold text-zinc-700 uppercase tracking-wider"
+                        >
+                          Phone Number <span className="text-accent-600">*</span>
+                        </label>
+                        <div className="relative">
+                          <Phone className="w-4 h-4 text-zinc-400 absolute left-3 top-2.5" />
+                          <input
+                            type="tel"
+                            id="clientPhone"
+                            required
+                            placeholder="+91 98765 43210"
+                            value={clientInfo.phone}
+                            onChange={(e) =>
+                              setClientInfo({ ...clientInfo, phone: e.target.value })
+                            }
+                            className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-zinc-300 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 outline-none text-xs text-zinc-900 bg-slate-50/40 focus:bg-white transition-all shadow-2xs font-medium"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-1 sm:col-span-2">
+                        <label
+                          htmlFor="clientEmail"
+                          className="block text-[11px] font-bold text-zinc-700 uppercase tracking-wider"
+                        >
+                          Email Address <span className="text-accent-600">*</span>
+                        </label>
+                        <div className="relative">
+                          <Mail className="w-4 h-4 text-zinc-400 absolute left-3 top-2.5" />
+                          <input
+                            type="email"
+                            id="clientEmail"
+                            required
+                            placeholder="patient@example.com"
+                            value={clientInfo.email}
+                            onChange={(e) =>
+                              setClientInfo({ ...clientInfo, email: e.target.value })
+                            }
+                            className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-zinc-300 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 outline-none text-xs text-zinc-900 bg-slate-50/40 focus:bg-white transition-all shadow-2xs font-medium"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Clinical Notes */}
+                  <div className="space-y-1 pt-1">
+                    <label
+                      htmlFor="clientNotes"
+                      className="block text-[11px] font-bold text-zinc-700 uppercase tracking-wider"
+                    >
+                      Reason for Consultation / Health History (Optional)
                     </label>
                     <textarea
                       id="clientNotes"
                       rows={3}
-                      placeholder="Mention any existing prescriptions, specific symptoms, or clinical background..."
+                      placeholder="Briefly describe symptoms, ongoing medications, or specific questions for Dr. Anil Pandey..."
                       value={clientInfo.notes}
-                      onChange={(e) => setClientInfo({ ...clientInfo, notes: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:border-brand-700 focus:ring-2 focus:ring-brand-100 outline-none text-sm text-zinc-900 resize-y"
+                      onChange={(e) =>
+                        setClientInfo({ ...clientInfo, notes: e.target.value })
+                      }
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 outline-none text-xs text-zinc-900 bg-slate-50/40 focus:bg-white transition-all shadow-2xs resize-y font-medium"
                     />
                   </div>
-                </div>
 
-                {/* Submit Action */}
-                <div className="pt-4 border-t border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-                  <div className="flex items-center gap-2 text-xs text-zinc-500">
-                    <ShieldCheck className="w-4 h-4 text-brand-700" />
-                    <span>Strict patient confidentiality and medical discretion</span>
+                  {/* Submit Button */}
+                  <div className="pt-2">
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 border border-brand-400/40 disabled:opacity-60 cursor-pointer"
+                    >
+                      {loading ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          <span>Reserving Consultation Slot...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Calendar className="w-4 h-4 text-brand-200" />
+                          <span>Confirm Consultation Booking</span>
+                          <ArrowRight className="w-4 h-4 ml-1 text-accent-400" />
+                        </>
+                      )}
+                    </button>
                   </div>
 
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-brand-800 hover:bg-brand-900 text-white font-bold text-base shadow-md transition-all hover:shadow-lg disabled:opacity-75 cursor-pointer"
-                  >
-                    {loading ? (
-                      <span>Confirming Booking...</span>
-                    ) : (
-                      <>
-                        <CheckCircle2 className="w-5 h-5" />
-                        <span>Book Consultation</span>
-                      </>
-                    )}
-                  </button>
-                </div>
-              </form>
+                  {/* Security Guarantee Note */}
+                  <div className="pt-2 flex flex-col sm:flex-row items-center justify-between text-[11px] text-zinc-500 border-t border-zinc-100 gap-1.5">
+                    <span className="flex items-center gap-1 text-zinc-600">
+                      <Lock className="w-3.5 h-3.5 text-accent-600" />
+                      <span>100% Confidential Medical Case Assessment</span>
+                    </span>
+                    <span className="text-zinc-500">Reception Verification Included</span>
+                  </div>
+                </form>
+              )}
             </div>
-          )}
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* 6. Final Consultation CTA */}
-      <section className="relative py-20 lg:py-24 overflow-hidden text-white">
-        <div className="absolute inset-0 -z-30 w-full h-full">
-          <Image
-            src={IMAGES.finalCtaBg}
-            alt="Consultation Clinic"
-            fill
-            sizes="100vw"
-            className="object-cover object-center w-full h-full"
-          />
-        </div>
-        <div
-          className="absolute inset-0 -z-20 bg-gradient-to-r from-brand-950/30 via-brand-950/20 to-brand-950/15"
-          aria-hidden="true"
-        />
+      {/* 4. SECTION: 4-STEP CONSULTATION PROCESS */}
+      <section className="py-12 sm:py-16 bg-white border-b border-brand-100/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+          <div className="max-w-2xl mx-auto text-center space-y-2">
+            <ScrollReveal animation="fade-down">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 text-brand-900 text-xs font-semibold uppercase tracking-wider border border-brand-200 shadow-2xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-600" />
+                <span>Structured Patient Journey</span>
+              </div>
+            </ScrollReveal>
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 relative z-10">
-          <h2 className="text-3xl sm:text-4xl font-bold drop-shadow-md">
-            Dedicated Clinical Attention for Your Health Needs
-          </h2>
-          <p className="text-base sm:text-lg text-brand-100 max-w-xl mx-auto drop-shadow-sm font-normal">
-            Arrange your consultation with Dr. Anil Pandey for evidence-guided diagnostics and personalized care.
-          </p>
-          <div className="pt-2">
-            <Link
-              href="/appointment"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white text-brand-950 font-bold text-base shadow-xl hover:bg-brand-50 transition-colors"
-            >
-              <Calendar className="w-4 h-4 text-brand-800" />
-              <span>Take an Appointment</span>
-            </Link>
+            <ScrollReveal animation="fade-up" delay={100}>
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-brand-950">
+                The 4-Step Consultation Process
+              </h2>
+            </ScrollReveal>
+
+            <ScrollReveal animation="fade-up" delay={150}>
+              <p className="text-xs sm:text-sm text-zinc-600">
+                A thorough, clinical workflow ensuring dedicated preparation and actionable treatment guidance.
+              </p>
+            </ScrollReveal>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {CONSULTATION_STEPS.map((step, idx) => (
+              <ScrollReveal key={step.step} animation="fade-up" delay={idx * 100}>
+                <div className="bg-slate-50/80 hover:bg-white rounded-2xl p-5 border border-brand-100 shadow-2xs hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full group hover:border-accent-300">
+                  <div>
+                    <div className="text-2xl font-black text-brand-600 mb-2 font-mono group-hover:text-accent-600 transition-colors">
+                      0{step.step}
+                    </div>
+                    <h3 className="text-sm font-bold text-brand-950 mb-1.5 group-hover:text-brand-700 transition-colors">
+                      {step.title}
+                    </h3>
+                    <p className="text-xs text-zinc-600 leading-relaxed font-normal">
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>

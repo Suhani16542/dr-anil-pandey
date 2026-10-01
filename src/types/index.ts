@@ -36,3 +36,35 @@ export interface AppointmentFormData {
   consultationType: string;
   message: string;
 }
+
+export interface VideoItem {
+  _id?: string;
+  id?: string;
+  title: string;
+  description?: string;
+  videoUrl: string;
+  thumbnailUrl?: string;
+  category?: string;
+  duration?: string;
+  publishedAt?: string;
+  featured?: boolean;
+}
+
+export interface BlogPost {
+  _id?: string;
+  id?: string;
+  title: string;
+  slug: string;
+  category: string;
+  author: string;
+  excerpt: string;
+  content: string;
+  coverImage?: string;
+  tags?: string[];
+  status: "Draft" | "Published" | "Archived";
+  publishedAt?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  views?: number;
+}
+

@@ -1,23 +1,35 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-950: #062319;
-  --color-brand-900: #0d3829;
-  --color-brand-850: #104231;
-  --color-brand-800: #134e3a;
-  --color-brand-700: #17654b;
-  --color-brand-600: #1f8261;
-  --color-brand-500: #2b9e76;
-  --color-brand-400: #46b890;
-  --color-brand-300: #7ed0b1;
-  --color-brand-200: #b9e8d4;
-  --color-brand-100: #e2f6ee;
-  --color-brand-50: #f2faf6;
+  --color-brand-950: #041b24;
+  --color-brand-900: #063b4a;
+  --color-brand-850: #094b5e;
+  --color-brand-800: #0e5e75;
+  --color-brand-700: #107693;
+  --color-brand-600: #1597b8;
+  --color-brand-500: #18abc4;
+  --color-brand-400: #3fc3dc;
+  --color-brand-300: #78d7eb;
+  --color-brand-200: #b5eaf5;
+  --color-brand-100: #e0f6fa;
+  --color-brand-50: #f2fafc;
+
+  --color-accent-950: #450a0a;
+  --color-accent-900: #7f1d1d;
+  --color-accent-800: #991b1b;
+  --color-accent-700: #b91c1c;
+  --color-accent-600: #d94b4b;
+  --color-accent-500: #e85b5b;
+  --color-accent-400: #f27e7e;
+  --color-accent-300: #f8aaaa;
+  --color-accent-200: #fecaca;
+  --color-accent-100: #fee2e2;
+  --color-accent-50: #fef2f2;
 }
 
 :root {
   --background: #ffffff;
-  --foreground: #14211d;
+  --foreground: #0b1f26;
 }
 
 html {
@@ -38,7 +50,7 @@ body {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
@@ -69,43 +81,113 @@ body {
 @keyframes pulseGlow {
   0%, 100% {
     opacity: 0.6;
+    transform: scale(1);
   }
   50% {
-    opacity: 0.9;
+    opacity: 1;
+    transform: scale(1.15);
   }
 }
 
-.animate-fade-up {
-  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
 }
 
-.animate-menu-slide {
-  animation: menuSlideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
 }
 
-.animate-overlay-fade {
-  animation: overlayFadeIn 0.2s ease-out forwards;
+/* Rich Scroll Reveal & Keyframe Animations */
+.reveal {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
-.delay-100 {
-  animation-delay: 100ms;
+.reveal-fade-up {
+  transform: translateY(28px);
 }
 
-.delay-200 {
-  animation-delay: 200ms;
+.reveal-fade-down {
+  transform: translateY(-28px);
 }
 
-.delay-300 {
-  animation-delay: 300ms;
+.reveal-fade-left {
+  transform: translateX(-32px);
 }
 
-/* Smooth Interactive Card & Image Transitions */
-.card-hover-effect {
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+.reveal-fade-right {
+  transform: translateX(32px);
 }
 
-.card-hover-effect:hover {
+.reveal-zoom-in {
+  transform: scale(0.94);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(217, 75, 75, 0.5);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(217, 75, 75, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(217, 75, 75, 0);
+  }
+}
+
+.animate-pulse-ring {
+  animation: pulseRing 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease infinite;
+}
+
+/* Premium Card & Interactive Hover Transitions */
+.card-interactive {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-interactive:hover {
   transform: translateY(-3px);
+  box-shadow: 0 16px 28px -12px rgba(16, 118, 147, 0.16), 0 6px 12px -4px rgba(0, 0, 0, 0.05);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(224, 246, 250, 0.85);
+}
+
+.glass-panel-dark {
+  background: rgba(4, 27, 36, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(63, 195, 220, 0.25);
 }
 
 /* Accessibility: Respect Reduced Motion */

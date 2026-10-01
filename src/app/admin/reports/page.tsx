@@ -94,7 +94,7 @@ export default function ReportsPage() {
 
         <div className="bg-white p-5 rounded-2xl border border-zinc-200 shadow-xs">
           <span className="text-xs font-bold text-zinc-500 uppercase">Clinical Visits</span>
-          <div className="text-2xl font-extrabold text-blue-900 mt-2">
+          <div className="text-2xl font-extrabold text-brand-950 mt-2">
             {loading ? "..." : data?.totalVisits || 0}
           </div>
           <p className="text-[11px] text-zinc-400 mt-1">Encounters recorded</p>
@@ -110,7 +110,7 @@ export default function ReportsPage() {
 
         <div className="bg-white p-5 rounded-2xl border border-zinc-200 shadow-xs">
           <span className="text-xs font-bold text-zinc-500 uppercase">Follow-up Tasks</span>
-          <div className="text-2xl font-extrabold text-amber-900 mt-2">
+          <div className="text-2xl font-extrabold text-accent-700 mt-2">
             {loading ? "..." : data?.totalFollowups || 0}
           </div>
           <p className="text-[11px] text-zinc-400 mt-1">Scheduled follow-up CRM items</p>
@@ -121,8 +121,8 @@ export default function ReportsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Patient Status Distribution */}
         <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-xs space-y-4">
-          <h2 className="text-sm font-extrabold text-zinc-900 flex items-center gap-2">
-            <Users className="w-4 h-4 text-emerald-700" />
+          <h2 className="text-sm font-extrabold text-brand-950 flex items-center gap-2">
+            <Users className="w-4 h-4 text-brand-700" />
             <span>Patients by Status</span>
           </h2>
           <div className="space-y-2.5">
@@ -138,7 +138,7 @@ export default function ReportsPage() {
                     </span>
                   </div>
                   <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div className="bg-emerald-600 h-2 rounded-full" style={{ width: `${pct}%` }}></div>
+                    <div className="bg-brand-600 h-2 rounded-full" style={{ width: `${pct}%` }}></div>
                   </div>
                 </div>
               );
@@ -148,7 +148,7 @@ export default function ReportsPage() {
 
         {/* Patient Acquisition Source */}
         <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-xs space-y-4">
-          <h2 className="text-sm font-extrabold text-zinc-900 flex items-center gap-2">
+          <h2 className="text-sm font-extrabold text-brand-950 flex items-center gap-2">
             <TrendingUp className="w-4 h-4 text-brand-700" />
             <span>Patient Acquisition Source</span>
           </h2>
@@ -175,8 +175,8 @@ export default function ReportsPage() {
 
         {/* Follow-up Status Compliance */}
         <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-xs space-y-4">
-          <h2 className="text-sm font-extrabold text-zinc-900 flex items-center gap-2">
-            <Clock className="w-4 h-4 text-amber-700" />
+          <h2 className="text-sm font-extrabold text-brand-950 flex items-center gap-2">
+            <Clock className="w-4 h-4 text-accent-600" />
             <span>Follow-up Status Breakdown</span>
           </h2>
           <div className="space-y-2.5">
@@ -192,7 +192,7 @@ export default function ReportsPage() {
                     </span>
                   </div>
                   <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div className="bg-amber-600 h-2 rounded-full" style={{ width: `${pct}%` }}></div>
+                    <div className="bg-accent-600 h-2 rounded-full" style={{ width: `${pct}%` }}></div>
                   </div>
                 </div>
               );

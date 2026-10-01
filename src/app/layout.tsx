@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className="h-full antialiased" data-scroll-behavior="smooth">
       <body className="min-h-full flex flex-col bg-white text-zinc-900 selection:bg-brand-100 selection:text-brand-900">
         <Navbar />
         <main className="flex-1">{children}</main>

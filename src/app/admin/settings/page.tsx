@@ -80,15 +80,15 @@ export default function AdminSettingsPage() {
           </div>
 
           {successMessage && (
-            <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <div className="p-3.5 rounded-xl bg-brand-50 border border-brand-200 text-brand-900 text-xs font-semibold flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-brand-600 shrink-0" />
               <span>{successMessage}</span>
             </div>
           )}
 
           {errorMessage && (
-            <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+            <div className="p-3.5 rounded-xl bg-accent-50 border border-accent-200 text-accent-700 text-xs font-semibold flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-accent-600 shrink-0" />
               <span>{errorMessage}</span>
             </div>
           )}
@@ -183,7 +183,7 @@ export default function AdminSettingsPage() {
 
               <div className="p-3 bg-zinc-50 rounded-xl border border-zinc-200 flex items-center justify-between">
                 <span className="font-medium text-zinc-600">SMTP Email Delivery</span>
-                <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold">
+                <span className="px-2 py-0.5 rounded-full bg-brand-100 text-brand-900 border border-brand-200 text-[10px] font-bold">
                   Configured via .env
                 </span>
               </div>

@@ -22,6 +22,7 @@ import {
   Search,
   ChevronRight,
   UserPlus,
+  BookOpen,
 } from "lucide-react";
 import { SITE_NAME } from "@/data/siteData";
 
@@ -170,6 +171,7 @@ export default function AdminLayout({
     { label: "Patients", href: "/admin/patients", icon: Users, highlight: true },
     { label: "Appointments", href: "/admin/appointments", icon: Calendar },
     { label: "Consultations", href: "/admin/consultations", icon: Video },
+    { label: "Blog", href: "/admin/blog", icon: BookOpen },
     { label: "Inquiries", href: "/admin/inquiries", icon: MessageSquare },
     { label: "Patient Follow-ups", href: "/admin/followups", icon: Clock },
     { label: "Reports", href: "/admin/reports", icon: BarChart3 },
@@ -189,7 +191,7 @@ export default function AdminLayout({
             <div className="font-bold text-sm tracking-tight text-white leading-tight">
               {SITE_NAME}
             </div>
-            <div className="text-[11px] text-emerald-400 font-semibold tracking-wider uppercase">
+            <div className="text-[11px] text-brand-300 font-semibold tracking-wider uppercase">
               Patient CRM System
             </div>
           </div>
@@ -210,11 +212,11 @@ export default function AdminLayout({
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <item.icon className={`w-4 h-4 ${isActive ? "text-emerald-300" : "text-zinc-400"}`} />
+                  <item.icon className={`w-4 h-4 ${isActive ? "text-brand-300" : "text-zinc-400"}`} />
                   <span>{item.label}</span>
                 </div>
                 {item.highlight && (
-                  <span className="px-1.5 py-0.5 text-[10px] uppercase font-bold tracking-wider rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  <span className="px-1.5 py-0.5 text-[10px] uppercase font-bold tracking-wider rounded bg-brand-500/20 text-brand-300 border border-brand-500/30">
                     CRM
                   </span>
                 )}
@@ -268,6 +270,8 @@ export default function AdminLayout({
                 ? "Patients CRM"
                 : pathname.startsWith("/admin/patients/")
                 ? "Patient Profile"
+                : pathname === "/admin/blog"
+                ? "Blog Management"
                 : pathname.replace("/admin/", "").replace("-", " ")}
             </h2>
           </div>
@@ -314,7 +318,7 @@ export default function AdminLayout({
                           setSearchOpen(false);
                           setSearchQuery("");
                         }}
-                        className="p-2.5 flex items-center justify-between hover:bg-emerald-50/60 transition-colors group"
+                        className="p-2.5 flex items-center justify-between hover:bg-brand-50 transition-colors group"
                       >
                         <div className="flex items-center gap-3 min-w-0">
                           <div className="w-8 h-8 rounded-lg bg-brand-100 text-brand-800 flex items-center justify-center font-bold text-xs shrink-0">
@@ -336,7 +340,7 @@ export default function AdminLayout({
                           <span
                             className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
                               pt.status === "Active"
-                                ? "bg-emerald-100 text-emerald-800"
+                                ? "bg-brand-100 text-brand-900 border border-brand-200"
                                 : pt.status === "Follow-up Required"
                                 ? "bg-purple-100 text-purple-800"
                                 : "bg-zinc-100 text-zinc-700"
@@ -408,7 +412,7 @@ export default function AdminLayout({
                       setMobileSearchOpen(false);
                       setSearchQuery("");
                     }}
-                    className="p-2.5 flex items-center justify-between hover:bg-emerald-50 text-xs"
+                    className="p-2.5 flex items-center justify-between hover:bg-brand-50 text-xs"
                   >
                     <div>
                       <div className="font-bold text-zinc-900">{pt.fullName}</div>
@@ -463,7 +467,7 @@ export default function AdminLayout({
                       <span>{item.label}</span>
                     </div>
                     {item.highlight && (
-                      <span className="px-1.5 py-0.5 text-[10px] font-bold rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                      <span className="px-1.5 py-0.5 text-[10px] font-bold rounded bg-brand-500/20 text-brand-300 border border-brand-500/30">
                         CRM
                       </span>
                     )}

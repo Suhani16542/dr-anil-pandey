@@ -4,8 +4,6 @@ import AboutPreview from "@/components/AboutPreview";
 import ProfessionalProfile from "@/components/ProfessionalProfile";
 import AreasOfFocus from "@/components/AreasOfFocus";
 import ProfessionalHighlights from "@/components/ProfessionalHighlights";
-import AppointmentCTA from "@/components/AppointmentCTA";
-import VideoSection from "@/components/VideoSection";
 import ProfessionalApproach from "@/components/ProfessionalApproach";
 import ProfessionalJourney from "@/components/ProfessionalJourney";
 import FinalCTA from "@/components/FinalCTA";
@@ -28,19 +26,13 @@ export default function Home() {
       {/* 5. Professional Highlights (Visual Photographic Headers) */}
       <ProfessionalHighlights />
 
-      {/* 6. Mid-Page Consultation & Appointment CTA */}
-      <AppointmentCTA />
-
-      {/* 7. Video & Professional Presence Section */}
-      <VideoSection />
-
-      {/* 8. Professional Approach & Clinical Principles */}
+      {/* 6. Professional Approach & Clinical Principles */}
       <ProfessionalApproach />
 
-      {/* 9. Career Journey & Experience Timeline */}
+      {/* 7. Career Journey & Experience Timeline */}
       <ProfessionalJourney />
 
-      {/* 10. Final Full-Width Appointment Call to Action */}
+      {/* 8. Final Full-Width Appointment Call to Action */}
       <FinalCTA />
     </div>
   );

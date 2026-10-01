@@ -121,11 +121,11 @@ export default function InquiriesAdminPage() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "New":
-        return "bg-purple-50 text-purple-800 border-purple-200";
+        return "bg-accent-50 text-accent-700 border-accent-200 font-semibold";
       case "Contacted":
-        return "bg-amber-50 text-amber-800 border-amber-200";
+        return "bg-slate-100 text-brand-900 border-zinc-200";
       case "Resolved":
-        return "bg-emerald-50 text-emerald-800 border-emerald-200";
+        return "bg-brand-50 text-brand-800 border-brand-200 font-semibold";
       default:
         return "bg-zinc-100 text-zinc-800 border-zinc-200";
     }

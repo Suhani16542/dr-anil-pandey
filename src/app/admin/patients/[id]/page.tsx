@@ -417,19 +417,21 @@ export default function PatientProfilePage({
     switch (status) {
       case "Active":
       case "Confirmed":
+        return "bg-brand-50 text-brand-800 border-brand-200 font-semibold";
       case "Completed":
-        return "bg-emerald-50 text-emerald-800 border-emerald-200";
+        return "bg-brand-100/60 text-brand-900 border-brand-300 font-medium";
       case "Follow-up Required":
+      case "Overdue":
+        return "bg-accent-50 text-accent-700 border-accent-200 font-semibold";
       case "Scheduled":
-        return "bg-purple-50 text-purple-800 border-purple-200";
       case "Pending":
-        return "bg-amber-50 text-amber-800 border-amber-200";
+        return "bg-slate-100 text-brand-900 border-zinc-200";
       case "Inactive":
         return "bg-zinc-100 text-zinc-700 border-zinc-200";
       case "Archived":
       case "Cancelled":
       case "Missed":
-        return "bg-rose-50 text-rose-800 border-rose-200";
+        return "bg-accent-50 text-accent-800 border-accent-200";
       default:
         return "bg-zinc-50 text-zinc-700 border-zinc-200";
     }
@@ -472,12 +474,12 @@ export default function PatientProfilePage({
         <div
           className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 px-4 py-3 rounded-xl shadow-xl border text-xs sm:text-sm font-medium flex items-center gap-2 animate-fade-up max-w-[90vw] ${
             notification.type === "success"
-              ? "bg-emerald-900 text-white border-emerald-700"
+              ? "bg-brand-900 text-white border-brand-700"
               : "bg-rose-900 text-white border-rose-700"
           }`}
         >
           {notification.type === "success" ? (
-            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-brand-300 shrink-0" />
           ) : (
             <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
           )}
@@ -535,7 +537,7 @@ export default function PatientProfilePage({
                   href={`tel:${patient.phone}`}
                   className="flex items-center gap-1 text-zinc-800 font-medium hover:text-brand-700"
                 >
-                  <Phone className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <Phone className="w-3.5 h-3.5 text-brand-600 shrink-0" />
                   <span>{patient.phone}</span>
                 </a>
                 {patient.email && (
@@ -720,26 +722,26 @@ export default function PatientProfilePage({
             {/* Emergency Contact */}
             <div className="bg-white rounded-2xl border border-zinc-200 p-4 sm:p-6 shadow-xs">
               <h2 className="text-xs sm:text-sm font-extrabold text-zinc-900 flex items-center gap-2 mb-3">
-                <Shield className="w-4 h-4 text-emerald-700" />
+                <Shield className="w-4 h-4 text-brand-700" />
                 <span>Emergency Contact Person</span>
               </h2>
 
               {patient.emergencyContact?.name || patient.emergencyContact?.phone ? (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
-                  <div className="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100">
-                    <span className="text-[10px] font-bold text-emerald-800 uppercase block mb-0.5">
+                  <div className="p-3 bg-brand-50/50 rounded-xl border border-brand-100">
+                    <span className="text-[10px] font-bold text-brand-800 uppercase block mb-0.5">
                       Name
                     </span>
                     <span className="font-bold text-zinc-900">{patient.emergencyContact.name || "—"}</span>
                   </div>
-                  <div className="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100">
-                    <span className="text-[10px] font-bold text-emerald-800 uppercase block mb-0.5">
+                  <div className="p-3 bg-brand-50/50 rounded-xl border border-brand-100">
+                    <span className="text-[10px] font-bold text-brand-800 uppercase block mb-0.5">
                       Phone Number
                     </span>
                     <span className="font-bold text-zinc-900">{patient.emergencyContact.phone || "—"}</span>
                   </div>
-                  <div className="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100">
-                    <span className="text-[10px] font-bold text-emerald-800 uppercase block mb-0.5">
+                  <div className="p-3 bg-brand-50/50 rounded-xl border border-brand-100">
+                    <span className="text-[10px] font-bold text-brand-800 uppercase block mb-0.5">
                       Relationship
                     </span>
                     <span className="font-bold text-zinc-900">

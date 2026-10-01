@@ -147,17 +147,18 @@ export default function AdminDashboardPage() {
     switch (status) {
       case "Pending":
       case "Scheduled":
-        return "bg-amber-50 text-amber-800 border-amber-200";
+        return "bg-slate-100 text-brand-900 border-zinc-200";
       case "Confirmed":
       case "Active":
-        return "bg-emerald-50 text-emerald-800 border-emerald-200";
+        return "bg-brand-50 text-brand-800 border-brand-200 font-semibold";
       case "Completed":
-        return "bg-blue-50 text-blue-800 border-blue-200";
+        return "bg-brand-100/60 text-brand-900 border-brand-300 font-medium";
       case "Follow-up Required":
-        return "bg-purple-50 text-purple-800 border-purple-200";
+      case "Overdue":
+        return "bg-accent-50 text-accent-700 border-accent-200 font-semibold";
       case "Cancelled":
       case "Missed":
-        return "bg-rose-50 text-rose-800 border-rose-200";
+        return "bg-accent-50 text-accent-800 border-accent-200";
       default:
         return "bg-zinc-50 text-zinc-700 border-zinc-200";
     }
@@ -166,16 +167,17 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-4 sm:space-y-6 max-w-7xl mx-auto">
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-brand-900 via-brand-850 to-brand-950 text-white p-4 sm:p-6 lg:p-8 rounded-2xl shadow-sm border border-brand-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-gradient-to-r from-brand-950 via-brand-900 to-brand-950 text-white p-4 sm:p-6 lg:p-8 rounded-2xl shadow-sm border border-brand-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-1.5 text-emerald-400 text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-1">
-            <Stethoscope className="w-3.5 h-3.5" />
-            <span>Clinical CRM & Patient Management</span>
+          <div className="flex items-center gap-2 text-brand-300 text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-1">
+            <span className="w-2 h-2 rounded-full bg-accent-500 animate-pulse" />
+            <Stethoscope className="w-3.5 h-3.5 text-brand-300" />
+            <span>Clinical CRM &amp; Patient Management</span>
           </div>
           <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight">
             Dr. Anil Pandey Clinic Console
           </h1>
-          <p className="text-zinc-300 text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed">
+          <p className="text-brand-100/80 text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed">
             Real-time patient database, upcoming appointments, consultation queues, and clinical follow-up tracking.
           </p>
         </div>
@@ -183,7 +185,7 @@ export default function AdminDashboardPage() {
         <div className="flex flex-wrap items-center gap-2 sm:gap-3 shrink-0">
           <Link
             href="/admin/patients"
-            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition-colors shadow-sm"
+            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-bold transition-colors shadow-sm"
           >
             <UserPlus className="w-4 h-4" />
             <span>Patients Directory</span>
@@ -199,28 +201,28 @@ export default function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* Primary CRM Stats Grid (1 Col Mobile, 2 Col Tablet, 4 Col Desktop) */}
+      {/* Primary CRM Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {/* Total Patients */}
         <Link
           href="/admin/patients"
-          className="bg-white p-4 sm:p-5 rounded-2xl border border-zinc-200 hover:border-emerald-500 hover:shadow-md transition-all group"
+          className="bg-white p-4 sm:p-5 rounded-2xl border border-zinc-200 hover:border-brand-500 hover:shadow-md transition-all group"
         >
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Total Patients</span>
-            <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+            <div className="w-9 h-9 rounded-xl bg-brand-50 text-brand-700 flex items-center justify-center group-hover:scale-105 transition-transform border border-brand-100">
               <Users className="w-5 h-5" />
             </div>
           </div>
           <div className="mt-2.5 flex items-baseline gap-2">
-            <div className="text-2xl sm:text-3xl font-extrabold text-zinc-900">
+            <div className="text-2xl sm:text-3xl font-extrabold text-brand-950">
               {loading ? "..." : stats?.totalPatients || 0}
             </div>
-            <span className="text-[11px] font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
+            <span className="text-[11px] font-semibold text-brand-700 bg-brand-50 px-1.5 py-0.5 rounded border border-brand-200">
               +{stats?.newPatientsThisMonth || 0} this mo
             </span>
           </div>
-          <div className="mt-2 text-xs text-zinc-500 flex items-center gap-1 group-hover:text-emerald-700 font-medium">
+          <div className="mt-2 text-xs text-zinc-500 flex items-center gap-1 group-hover:text-brand-700 font-medium">
             <span>Manage patient records</span>
             <ArrowRight className="w-3 h-3" />
           </div>
@@ -229,51 +231,51 @@ export default function AdminDashboardPage() {
         {/* Today's Appointments */}
         <Link
           href="/admin/appointments"
-          className="bg-white p-4 sm:p-5 rounded-2xl border border-zinc-200 hover:border-blue-500 hover:shadow-md transition-all group"
+          className="bg-white p-4 sm:p-5 rounded-2xl border border-zinc-200 hover:border-brand-500 hover:shadow-md transition-all group"
         >
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Today&apos;s Appointments</span>
-            <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+            <div className="w-9 h-9 rounded-xl bg-brand-50 text-brand-700 flex items-center justify-center group-hover:scale-105 transition-transform border border-brand-100">
               <Calendar className="w-5 h-5" />
             </div>
           </div>
           <div className="mt-2.5 flex items-baseline gap-2">
-            <div className="text-2xl sm:text-3xl font-extrabold text-zinc-900">
+            <div className="text-2xl sm:text-3xl font-extrabold text-brand-950">
               {loading ? "..." : stats?.todayAppointments || 0}
             </div>
             <span className="text-xs text-zinc-500">
               ({stats?.upcomingAppointments || 0} upcoming)
             </span>
           </div>
-          <div className="mt-2 text-xs text-zinc-500 flex items-center gap-1 group-hover:text-blue-700 font-medium">
+          <div className="mt-2 text-xs text-zinc-500 flex items-center gap-1 group-hover:text-brand-700 font-medium">
             <span>View appointment schedule</span>
             <ArrowRight className="w-3 h-3" />
           </div>
         </Link>
 
-        {/* Follow-ups Due Today */}
+        {/* Follow-ups Due Today (with Red Accent for urgent alerts) */}
         <Link
           href="/admin/followups"
-          className="bg-white p-4 sm:p-5 rounded-2xl border border-zinc-200 hover:border-amber-500 hover:shadow-md transition-all group"
+          className="bg-white p-4 sm:p-5 rounded-2xl border border-zinc-200 hover:border-accent-400 hover:shadow-md transition-all group"
         >
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Follow-ups Due</span>
-            <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+            <div className="w-9 h-9 rounded-xl bg-accent-50 text-accent-700 flex items-center justify-center group-hover:scale-105 transition-transform border border-accent-200">
               <Clock className="w-5 h-5" />
             </div>
           </div>
           <div className="mt-2.5 flex items-baseline gap-2">
-            <div className="text-2xl sm:text-3xl font-extrabold text-zinc-900">
+            <div className="text-2xl sm:text-3xl font-extrabold text-brand-950">
               {loading ? "..." : stats?.followupsDueToday || 0}
             </div>
             {Boolean(stats?.overdueFollowups) && (
-              <span className="text-xs font-semibold text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded flex items-center gap-0.5">
-                <AlertCircle className="w-3 h-3" />
+              <span className="text-xs font-semibold text-accent-700 bg-accent-50 px-1.5 py-0.5 rounded flex items-center gap-0.5 border border-accent-200">
+                <AlertCircle className="w-3 h-3 text-accent-600" />
                 {stats?.overdueFollowups} overdue
               </span>
             )}
           </div>
-          <div className="mt-2 text-xs text-zinc-500 flex items-center gap-1 group-hover:text-amber-700 font-medium">
+          <div className="mt-2 text-xs text-zinc-500 flex items-center gap-1 group-hover:text-accent-700 font-medium">
             <span>Check follow-up CRM</span>
             <ArrowRight className="w-3 h-3" />
           </div>
@@ -282,23 +284,23 @@ export default function AdminDashboardPage() {
         {/* Pending Consultations */}
         <Link
           href="/admin/consultations"
-          className="bg-white p-4 sm:p-5 rounded-2xl border border-zinc-200 hover:border-purple-500 hover:shadow-md transition-all group"
+          className="bg-white p-4 sm:p-5 rounded-2xl border border-zinc-200 hover:border-brand-500 hover:shadow-md transition-all group"
         >
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Pending Consultations</span>
-            <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+            <div className="w-9 h-9 rounded-xl bg-brand-50 text-brand-700 flex items-center justify-center group-hover:scale-105 transition-transform border border-brand-100">
               <Video className="w-5 h-5" />
             </div>
           </div>
           <div className="mt-2.5 flex items-baseline gap-2">
-            <div className="text-2xl sm:text-3xl font-extrabold text-zinc-900">
+            <div className="text-2xl sm:text-3xl font-extrabold text-brand-950">
               {loading ? "..." : stats?.pendingConsultations || 0}
             </div>
             <span className="text-xs text-zinc-500">
               ({stats?.totalConsultations || 0} total)
             </span>
           </div>
-          <div className="mt-2 text-xs text-zinc-500 flex items-center gap-1 group-hover:text-purple-700 font-medium">
+          <div className="mt-2 text-xs text-zinc-500 flex items-center gap-1 group-hover:text-brand-700 font-medium">
             <span>Manage online requests</span>
             <ArrowRight className="w-3 h-3" />
           </div>
@@ -307,19 +309,19 @@ export default function AdminDashboardPage() {
 
       {/* Secondary Quick Metrics Row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 bg-white p-3.5 sm:p-4 rounded-xl border border-zinc-200 text-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between p-2 rounded-lg bg-slate-50/70">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between p-2 rounded-lg bg-slate-50/70 border border-zinc-100">
           <span className="text-zinc-500 font-medium">Active Patients:</span>
-          <span className="font-bold text-zinc-900 text-sm sm:text-xs">{stats?.activePatients || 0}</span>
+          <span className="font-bold text-brand-950 text-sm sm:text-xs">{stats?.activePatients || 0}</span>
         </div>
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between p-2 rounded-lg bg-slate-50/70">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between p-2 rounded-lg bg-slate-50/70 border border-zinc-100">
           <span className="text-zinc-500 font-medium">Follow-up Needed:</span>
-          <span className="font-bold text-purple-700 text-sm sm:text-xs">{stats?.followupRequiredPatients || 0}</span>
+          <span className="font-bold text-accent-700 text-sm sm:text-xs">{stats?.followupRequiredPatients || 0}</span>
         </div>
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between p-2 rounded-lg bg-slate-50/70">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between p-2 rounded-lg bg-slate-50/70 border border-zinc-100">
           <span className="text-zinc-500 font-medium">Pending Apt:</span>
-          <span className="font-bold text-amber-700 text-sm sm:text-xs">{stats?.pendingAppointments || 0}</span>
+          <span className="font-bold text-brand-800 text-sm sm:text-xs">{stats?.pendingAppointments || 0}</span>
         </div>
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between p-2 rounded-lg bg-slate-50/70">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between p-2 rounded-lg bg-slate-50/70 border border-zinc-100">
           <span className="text-zinc-500 font-medium">New Inquiries:</span>
           <span className="font-bold text-brand-800 text-sm sm:text-xs">{stats?.newInquiries || 0}</span>
         </div>
@@ -331,12 +333,12 @@ export default function AdminDashboardPage() {
         <div className="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-xs">
           <div className="p-3.5 sm:p-5 border-b border-zinc-100 flex items-center justify-between bg-slate-50/50">
             <div className="flex items-center gap-2">
-              <Users className="w-4 h-4 text-emerald-700" />
+              <Users className="w-4 h-4 text-brand-700" />
               <h2 className="text-xs sm:text-sm font-bold text-zinc-900">Recent Patients</h2>
             </div>
             <Link
               href="/admin/patients"
-              className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 flex items-center gap-1"
+              className="text-xs font-semibold text-brand-700 hover:text-brand-800 flex items-center gap-1"
             >
               <span>Directory</span>
               <ArrowRight className="w-3 h-3" />
@@ -403,12 +405,12 @@ export default function AdminDashboardPage() {
         <div className="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-xs">
           <div className="p-3.5 sm:p-5 border-b border-zinc-100 flex items-center justify-between bg-slate-50/50">
             <div className="flex items-center gap-2">
-              <Clock3 className="w-4 h-4 text-amber-700" />
-              <h2 className="text-xs sm:text-sm font-bold text-zinc-900">Upcoming Follow-up CRM</h2>
+              <Clock3 className="w-4 h-4 text-accent-600" />
+              <h2 className="text-xs sm:text-sm font-bold text-brand-950">Upcoming Follow-up CRM</h2>
             </div>
             <Link
               href="/admin/followups"
-              className="text-xs font-semibold text-amber-700 hover:text-amber-800 flex items-center gap-1"
+              className="text-xs font-semibold text-accent-700 hover:text-accent-800 flex items-center gap-1"
             >
               <span>Queue</span>
               <ArrowRight className="w-3 h-3" />
@@ -508,7 +510,7 @@ export default function AdminDashboardPage() {
                       {apt.patientId?.patientId && (
                         <Link
                           href={`/admin/patients/${apt.patientId._id}`}
-                          className="font-mono text-[10px] text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-1.5 py-0.2 rounded font-semibold shrink-0"
+                          className="font-mono text-[10px] text-brand-700 bg-brand-50 hover:bg-brand-100 px-1.5 py-0.2 rounded font-semibold shrink-0 border border-brand-200"
                         >
                           {apt.patientId.patientId}
                         </Link>
@@ -535,12 +537,12 @@ export default function AdminDashboardPage() {
         <div className="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-xs">
           <div className="p-3.5 sm:p-5 border-b border-zinc-100 flex items-center justify-between bg-slate-50/50">
             <div className="flex items-center gap-2">
-              <Video className="w-4 h-4 text-purple-700" />
-              <h2 className="text-xs sm:text-sm font-bold text-zinc-900">Consultation Requests</h2>
+              <Video className="w-4 h-4 text-brand-700" />
+              <h2 className="text-xs sm:text-sm font-bold text-brand-950">Consultation Requests</h2>
             </div>
             <Link
               href="/admin/consultations"
-              className="text-xs font-semibold text-purple-700 hover:text-purple-800 flex items-center gap-1"
+              className="text-xs font-semibold text-brand-700 hover:text-brand-800 flex items-center gap-1"
             >
               <span>All</span>
               <ArrowRight className="w-3 h-3" />
@@ -564,7 +566,7 @@ export default function AdminDashboardPage() {
                       {con.patientId?.patientId && (
                         <Link
                           href={`/admin/patients/${con.patientId._id}`}
-                          className="font-mono text-[10px] text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-1.5 py-0.2 rounded font-semibold shrink-0"
+                          className="font-mono text-[10px] text-brand-700 bg-brand-50 hover:bg-brand-100 px-1.5 py-0.2 rounded font-semibold shrink-0 border border-brand-200"
                         >
                           {con.patientId.patientId}
                         </Link>

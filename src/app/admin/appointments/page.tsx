@@ -183,13 +183,13 @@ export default function AppointmentsAdminPage() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "Pending":
-        return "bg-amber-50 text-amber-800 border-amber-200";
+        return "bg-slate-100 text-brand-900 border-zinc-200";
       case "Confirmed":
-        return "bg-emerald-50 text-emerald-800 border-emerald-200";
+        return "bg-brand-50 text-brand-800 border-brand-200 font-semibold";
       case "Completed":
-        return "bg-blue-50 text-blue-800 border-blue-200";
+        return "bg-brand-100/60 text-brand-900 border-brand-300 font-medium";
       case "Cancelled":
-        return "bg-rose-50 text-rose-800 border-rose-200";
+        return "bg-accent-50 text-accent-800 border-accent-200";
       default:
         return "bg-zinc-100 text-zinc-800 border-zinc-200";
     }
@@ -321,7 +321,7 @@ export default function AppointmentsAdminPage() {
                             {item.patientId?.patientId && (
                               <Link
                                 href={`/admin/patients/${item.patientId._id}`}
-                                className="font-mono text-[10px] text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-1.5 py-0.5 rounded font-semibold border border-emerald-200"
+                                className="font-mono text-[10px] text-brand-700 bg-brand-50 hover:bg-brand-100 px-1.5 py-0.5 rounded font-semibold border border-brand-200"
                                 title="Open Patient CRM Profile"
                               >
                                 {item.patientId.patientId}
@@ -448,7 +448,7 @@ export default function AppointmentsAdminPage() {
                     {item.patientId?.patientId && (
                       <Link
                         href={`/admin/patients/${item.patientId._id}`}
-                        className="font-mono text-[10px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-semibold border border-emerald-200"
+                        className="font-mono text-[10px] text-brand-700 bg-brand-50 px-1.5 py-0.5 rounded font-semibold border border-brand-200"
                       >
                         {item.patientId.patientId}
                       </Link>
@@ -474,8 +474,8 @@ export default function AppointmentsAdminPage() {
               </div>
 
               <div className="flex items-center justify-between text-xs text-zinc-600 pt-1 border-t border-zinc-100">
-                <a href={`tel:${item.phone}`} className="flex items-center gap-1 hover:text-emerald-700 font-medium">
-                  <Phone className="w-3.5 h-3.5 text-emerald-600" />
+                <a href={`tel:${item.phone}`} className="flex items-center gap-1 hover:text-brand-700 font-medium">
+                  <Phone className="w-3.5 h-3.5 text-brand-600" />
                   <span>{item.phone}</span>
                 </a>
                 <span className="capitalize text-zinc-500">{item.consultationType.replace("-", " ")}</span>
@@ -508,7 +508,7 @@ export default function AppointmentsAdminPage() {
             {/* Modal Header */}
             <div className="p-5 bg-brand-950 text-white flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <Calendar className="w-5 h-5 text-emerald-400" />
+                <Calendar className="w-5 h-5 text-brand-300" />
                 <h3 className="font-bold text-base">Appointment Details</h3>
               </div>
               <button
@@ -600,7 +600,7 @@ export default function AppointmentsAdminPage() {
                 <div className="flex flex-wrap gap-2">
                   <button
                     onClick={() => handleStatusChange(selectedItem._id, "Confirmed")}
-                    className="px-3 py-1.5 rounded-lg bg-emerald-100 text-emerald-800 text-xs font-semibold hover:bg-emerald-200"
+                    className="px-3 py-1.5 rounded-lg bg-brand-100 text-brand-900 text-xs font-semibold hover:bg-brand-200"
                   >
                     ✓ Confirm Booking
                   </button>

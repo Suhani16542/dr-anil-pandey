@@ -62,38 +62,40 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center justify-between gap-4">
           {/* Logo / Brand */}
           <Link
             href="/"
             onClick={() => setMobileMenuOpen(false)}
-            className="group flex items-center gap-2.5 sm:gap-3 transition-transform duration-200 hover:opacity-90 shrink-0 min-w-0"
+            className="group flex items-center gap-2.5 sm:gap-3 transition-transform duration-200 hover:opacity-95 shrink-0"
           >
-            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-brand-900 flex items-center justify-center text-white font-bold text-sm sm:text-lg shadow-sm border border-brand-700 shrink-0">
-              AP
+            <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-brand-900 flex items-center justify-center text-white font-bold text-sm sm:text-base shadow-xs border border-brand-700 shrink-0">
+              <span>AP</span>
+              {/* Subtle Medical Red Accent Dot */}
+              <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-accent-600 border-2 border-white shadow-xs" />
             </div>
-            <div className="flex flex-col min-w-0">
-              <span className="text-sm sm:text-lg lg:text-xl font-bold tracking-tight text-brand-950 group-hover:text-brand-800 transition-colors truncate">
+            <div className="flex flex-col">
+              <span className="text-base sm:text-lg font-bold tracking-tight text-brand-950 group-hover:text-brand-700 transition-colors leading-tight">
                 {SITE_NAME}
               </span>
-              <span className="text-[10px] sm:text-xs font-medium text-brand-600 tracking-wider uppercase truncate">
+              <span className="text-[10px] sm:text-[11px] font-semibold text-brand-600 tracking-wider uppercase">
                 Medical &amp; Clinical Practice
               </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation Links (Preserved layout & styles) */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+          {/* Desktop Navigation Links - Evenly Spaced & Centered */}
+          <nav className="hidden lg:flex items-center gap-1 bg-zinc-50/80 p-1 rounded-xl border border-zinc-200/60">
             {NAV_ITEMS.map((item) => {
               const isActive = pathname === item.href;
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`px-3.5 xl:px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                  className={`px-3.5 py-1.5 rounded-lg text-sm transition-all duration-150 ${
                     isActive
-                      ? "text-brand-800 bg-brand-50 font-semibold"
-                      : "text-zinc-600 hover:text-brand-800 hover:bg-brand-50/60"
+                      ? "text-brand-950 bg-white font-semibold shadow-xs border border-brand-200/60"
+                      : "text-zinc-600 hover:text-brand-900 hover:bg-white/80 font-medium"
                   }`}
                 >
                   {item.label}
@@ -103,10 +105,10 @@ export default function Navbar() {
           </nav>
 
           {/* Header Action Buttons (Desktop) */}
-          <div className="hidden lg:flex items-center gap-2.5">
+          <div className="hidden lg:flex items-center gap-2 shrink-0">
             <Link
               href="/appointment"
-              className="inline-flex items-center gap-2 px-4.5 py-2.5 rounded-lg bg-brand-800 hover:bg-brand-900 text-white text-sm font-semibold shadow-sm transition-all duration-200 hover:shadow"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold shadow-xs transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
             >
               <Calendar className="w-4 h-4" />
               <span>Book Appointment</span>
@@ -114,10 +116,10 @@ export default function Navbar() {
 
             <Link
               href="/admin"
-              title="Admin Dashboard"
-              className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg border border-zinc-200 hover:border-brand-400 text-zinc-600 hover:text-brand-950 bg-white hover:bg-brand-50/70 text-xs font-semibold shadow-2xs transition-colors"
+              title="Admin Portal"
+              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-zinc-200 hover:border-brand-300 text-zinc-600 hover:text-brand-900 bg-white hover:bg-brand-50 text-xs font-semibold shadow-2xs transition-colors"
             >
-              <Shield className="w-4 h-4 text-brand-700" />
+              <Shield className="w-3.5 h-3.5 text-brand-700" />
               <span>Admin</span>
             </Link>
           </div>
@@ -127,7 +129,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen((prev) => !prev)}
-              className="p-2 min-h-[42px] min-w-[42px] flex items-center justify-center rounded-lg text-zinc-700 hover:text-brand-900 hover:bg-brand-50 border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-brand-600 transition-colors cursor-pointer"
+              className="p-2 min-h-[42px] min-w-[42px] flex items-center justify-center rounded-xl text-zinc-700 hover:text-brand-900 hover:bg-brand-50 border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-brand-600 transition-colors cursor-pointer"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
             >
@@ -173,7 +175,7 @@ export default function Navbar() {
                   <Link
                     href="/appointment"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-brand-800 hover:bg-brand-900 text-white font-semibold text-sm shadow-sm transition-colors"
+                    className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm shadow-sm transition-colors"
                   >
                     <Calendar className="w-4 h-4" />
                     <span>Book an Appointment</span>

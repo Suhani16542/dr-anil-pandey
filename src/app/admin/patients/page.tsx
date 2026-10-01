@@ -355,13 +355,13 @@ export default function PatientsDirectoryPage() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "Active":
-        return "bg-emerald-50 text-emerald-800 border-emerald-200";
+        return "bg-brand-50 text-brand-800 border-brand-200 font-semibold";
       case "Follow-up Required":
-        return "bg-purple-50 text-purple-800 border-purple-200";
+        return "bg-accent-50 text-accent-700 border-accent-200 font-semibold";
       case "Inactive":
         return "bg-zinc-100 text-zinc-700 border-zinc-200";
       case "Archived":
-        return "bg-rose-50 text-rose-800 border-rose-200";
+        return "bg-slate-100 text-slate-700 border-slate-200";
       default:
         return "bg-zinc-50 text-zinc-700 border-zinc-200";
     }
@@ -374,12 +374,12 @@ export default function PatientsDirectoryPage() {
         <div
           className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 px-4 py-3 rounded-xl shadow-xl border text-xs sm:text-sm font-medium flex items-center gap-2 animate-fade-up max-w-[90vw] ${
             notification.type === "success"
-              ? "bg-emerald-900 text-white border-emerald-700"
-              : "bg-rose-900 text-white border-rose-700"
+              ? "bg-brand-900 text-white border-brand-700"
+              : "bg-accent-950 text-white border-accent-700"
           }`}
         >
           {notification.type === "success" ? (
-            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-brand-300 shrink-0" />
           ) : (
             <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
           )}
@@ -390,7 +390,7 @@ export default function PatientsDirectoryPage() {
       {/* Header & Action Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-6 rounded-2xl border border-zinc-200 shadow-xs">
         <div>
-          <div className="flex items-center gap-1.5 text-[11px] sm:text-xs font-bold text-emerald-700 uppercase tracking-wider">
+          <div className="flex items-center gap-1.5 text-[11px] sm:text-xs font-bold text-brand-700 uppercase tracking-wider">
             <Users className="w-3.5 h-3.5" />
             <span>Patient CRM Directory</span>
           </div>
@@ -599,7 +599,7 @@ export default function PatientsDirectoryPage() {
                       <div className="flex items-center justify-end gap-1">
                         <Link
                           href={`/admin/patients/${pt._id}`}
-                          className="p-1.5 rounded-lg border border-zinc-200 hover:bg-emerald-50 hover:text-emerald-700 text-zinc-600 transition-colors"
+                          className="p-1.5 rounded-lg border border-zinc-200 hover:bg-brand-50 hover:text-brand-700 text-zinc-600 transition-colors"
                           title="View Full Profile"
                         >
                           <Eye className="w-3.5 h-3.5" />
@@ -696,9 +696,9 @@ export default function PatientsDirectoryPage() {
               <div className="grid grid-cols-2 gap-2 text-xs text-zinc-600 pt-1 border-t border-zinc-100">
                 <a
                   href={`tel:${pt.phone}`}
-                  className="flex items-center gap-1 text-zinc-800 font-medium hover:text-emerald-700"
+                  className="flex items-center gap-1 text-zinc-800 font-medium hover:text-brand-700"
                 >
-                  <Phone className="w-3.5 h-3.5 text-emerald-600" />
+                  <Phone className="w-3.5 h-3.5 text-brand-600" />
                   <span>{pt.phone}</span>
                 </a>
                 <div className="text-right text-zinc-500">
@@ -726,7 +726,7 @@ export default function PatientsDirectoryPage() {
               <div className="grid grid-cols-4 gap-1.5 pt-1">
                 <Link
                   href={`/admin/patients/${pt._id}`}
-                  className="py-2 rounded-xl bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 text-zinc-700 font-semibold text-[11px] flex flex-col items-center justify-center gap-0.5 text-center"
+                  className="py-2 rounded-xl bg-slate-100 hover:bg-brand-50 hover:text-brand-700 text-zinc-700 font-semibold text-[11px] flex flex-col items-center justify-center gap-0.5 text-center"
                 >
                   <Eye className="w-3.5 h-3.5" />
                   <span>Profile</span>
@@ -820,8 +820,8 @@ export default function PatientsDirectoryPage() {
             <form onSubmit={handleAddPatientSubmit} className="p-4 sm:p-6 overflow-y-auto space-y-5">
               {/* Section 1 */}
               <div>
-                <h4 className="text-xs font-bold text-emerald-800 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
+                <h4 className="text-xs font-bold text-brand-800 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-brand-600"></span>
                   1. Basic &amp; Contact Details
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-3 text-xs">

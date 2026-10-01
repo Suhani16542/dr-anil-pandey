@@ -115,7 +115,7 @@ export default function AdminLoginPage() {
             >
               {loading ? (
                 <>
-                  <Activity className="w-4 h-4 animate-spin text-emerald-400" />
+                  <Activity className="w-4 h-4 animate-spin text-brand-300" />
                   <span>Authenticating...</span>
                 </>
               ) : (

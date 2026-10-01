@@ -8,14 +8,16 @@ import {
   Award,
   Sparkles,
   Clock,
+  Stethoscope,
 } from "lucide-react";
 import HeroVideo from "./HeroVideo";
+import ScrollReveal from "./animations/ScrollReveal";
 import { SITE_NAME, IMAGES } from "@/data/siteData";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[85vh] lg:min-h-[92vh] flex items-center overflow-hidden">
-      {/* 1. Full-Width Real Medical / Clinical Background Photograph (Dominant Visual Element) */}
+    <section className="relative overflow-hidden py-12 sm:py-14 lg:py-16 flex items-center">
+      {/* 1. Full-Width Real Medical / Clinical Background Photograph */}
       <div className="absolute inset-0 -z-30 w-full h-full">
         <Image
           src={IMAGES.heroBg}
@@ -27,78 +29,91 @@ export default function Hero() {
         />
       </div>
 
-      {/* 2. Single Ultra-Subtle Green/Dark Tint (15% - 20% opacity: Photo is completely visible and prominent) */}
+      {/* 2. Lightened Subtle Gradient Overlay for High Image Visibility */}
       <div
-        className="absolute inset-0 -z-20 bg-gradient-to-r from-brand-950/30 via-brand-950/15 to-brand-950/5"
+        className="absolute inset-0 -z-20 bg-gradient-to-r from-brand-950/70 via-brand-950/45 to-brand-950/20"
         aria-hidden="true"
       />
 
       {/* 3. Hero Content Container */}
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-          {/* Left Column: Hero Text & CTAs (Crisp White with Drop Shadow for Readability) */}
-          <div className="lg:col-span-7 flex flex-col items-start space-y-6 animate-fade-up">
-            {/* Eyebrow Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-950/85 border border-brand-400/50 text-brand-200 text-xs sm:text-sm font-semibold tracking-wide backdrop-blur-md shadow-lg">
-              <Sparkles className="w-3.5 h-3.5 text-brand-300" />
-              <span>Dedicated Clinical Excellence &amp; Patient Care</span>
-            </div>
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* Left Column: Hero Text & CTAs (Clean Alignment) */}
+          <div className="lg:col-span-7 flex flex-col items-start space-y-3 sm:space-y-3.5 text-left">
+            {/* Eyebrow Badge with Medical Red Pulse Dot */}
+            <ScrollReveal animation="fade-down" delay={50}>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-950/80 border border-brand-400/40 text-brand-100 text-xs font-semibold tracking-wide backdrop-blur-md shadow-xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-500 animate-pulse-ring" />
+                <Sparkles className="w-3 h-3 text-brand-300" />
+                <span>Dedicated Clinical Excellence &amp; Patient Care</span>
+              </div>
+            </ScrollReveal>
 
-            {/* Main Heading */}
-            <div className="space-y-2">
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.08] [text-shadow:_0_2px_12px_rgba(0,0,0,0.8)]">
-                {SITE_NAME}
-              </h1>
-              <p className="text-lg sm:text-2xl font-semibold text-brand-100 [text-shadow:_0_2px_8px_rgba(0,0,0,0.7)]">
-                [Specialization / Clinical Focus &amp; Senior Medical Consultant]
+            {/* Main Heading & Subtitle */}
+            <ScrollReveal animation="fade-up" delay={150}>
+              <div className="space-y-0.5">
+                <h1 className="text-2xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight text-white leading-tight [text-shadow:_0_2px_12px_rgba(0,0,0,0.85)]">
+                  {SITE_NAME}
+                </h1>
+                <p className="text-sm sm:text-base font-bold text-brand-200 flex items-center gap-1.5 [text-shadow:_0_2px_8px_rgba(0,0,0,0.7)]">
+                  <Stethoscope className="w-4 h-4 text-brand-300" />
+                  <span>Senior Medical Consultant &amp; Clinical Lead</span>
+                </p>
+              </div>
+            </ScrollReveal>
+
+            {/* Shortened 1-2 line Concise Description */}
+            <ScrollReveal animation="fade-up" delay={250}>
+              <p className="text-xs sm:text-sm text-white/95 max-w-lg leading-relaxed font-medium [text-shadow:_0_1px_6px_rgba(0,0,0,0.75)]">
+                Comprehensive clinical evaluations, evidence-based diagnoses, and personalized patient-centered healthcare.
               </p>
-            </div>
+            </ScrollReveal>
 
-            {/* Professional Introductory Placeholder (2-3 lines) */}
-            <p className="text-base sm:text-lg text-white max-w-2xl leading-relaxed font-medium [text-shadow:_0_1px_6px_rgba(0,0,0,0.7)]">
-              Committed to providing comprehensive clinical evaluations,
-              evidence-based treatment protocols, and compassionate
-              patient-centered healthcare designed to support lasting wellbeing.
-            </p>
+            {/* Compact Action Buttons with Navbar Teal Primary & Red Accent */}
+            <ScrollReveal animation="fade-up" delay={350}>
+              <div className="pt-0.5 flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
+                <Link
+                  href="/appointment"
+                  className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 border border-brand-400/40 cursor-pointer"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent-400 animate-pulse" />
+                  <Calendar className="w-3.5 h-3.5 text-white" />
+                  <span>Book an Appointment</span>
+                </Link>
+                <Link
+                  href="/consultation"
+                  className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-lg bg-white/95 hover:bg-white text-brand-950 font-semibold text-xs border border-white shadow-xs transition-all duration-200 hover:border-accent-300 hover:-translate-y-0.5 cursor-pointer"
+                >
+                  <Video className="w-3.5 h-3.5 text-accent-600" />
+                  <span>Consultation Booking</span>
+                </Link>
+              </div>
+            </ScrollReveal>
 
-            {/* Primary & Secondary CTAs */}
-            <div className="pt-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
-              <Link
-                href="/appointment"
-                className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-white text-brand-950 font-bold text-base shadow-2xl hover:bg-brand-50 transition-all duration-200 hover:-translate-y-0.5"
-              >
-                <Calendar className="w-5 h-5 text-brand-800" />
-                <span>Book an Appointment</span>
-              </Link>
-              <Link
-                href="/consultation"
-                className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl bg-brand-950/85 hover:bg-brand-900 text-white font-semibold text-base border border-brand-400/60 backdrop-blur-md transition-all duration-200 hover:border-brand-200 shadow-xl"
-              >
-                <Video className="w-5 h-5 text-brand-300" />
-                <span>Consultation Booking</span>
-              </Link>
-            </div>
-
-            {/* Trust Highlights */}
-            <div className="pt-6 border-t border-white/30 w-full grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs sm:text-sm text-white font-medium [text-shadow:_0_1px_4px_rgba(0,0,0,0.6)]">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Confidential Consultations</span>
+            {/* Trust Highlights Bar */}
+            <ScrollReveal animation="fade-up" delay={450}>
+              <div className="pt-2 border-t border-white/20 w-full grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px] sm:text-xs text-white font-medium [text-shadow:_0_1px_4px_rgba(0,0,0,0.6)]">
+                <div className="flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-brand-300 shrink-0" />
+                  <span>Confidential Consultations</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Award className="w-3.5 h-3.5 text-brand-300 shrink-0" />
+                  <span>Board Certified Expert</span>
+                </div>
+                <div className="flex items-center gap-1.5 col-span-2 sm:col-span-1">
+                  <Clock className="w-3.5 h-3.5 text-brand-300 shrink-0" />
+                  <span>Flexible In-Clinic &amp; Online</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <Award className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Board Certified Expert</span>
-              </div>
-              <div className="flex items-center gap-2 col-span-2 sm:col-span-1">
-                <Clock className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Flexible In-Clinic &amp; Online</span>
-              </div>
-            </div>
+            </ScrollReveal>
           </div>
 
-          {/* Right Column: Hero Video Element */}
-          <div className="lg:col-span-5 flex flex-col items-center justify-center animate-fade-up delay-100 w-full">
-            <HeroVideo />
+          {/* Right Column: Interactive Hero Clinical Stream / Video Element */}
+          <div className="lg:col-span-5 flex flex-col items-center justify-center w-full">
+            <ScrollReveal animation="fade-left" delay={200}>
+              <HeroVideo />
+            </ScrollReveal>
           </div>
         </div>
       </div>

@@ -43,7 +43,7 @@ export default function HeroVideo() {
     <div className="relative w-full max-w-xl mx-auto lg:max-w-none group">
       {/* Outer Glow & Ambient Reflection */}
       <div
-        className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-brand-400/40 via-emerald-500/30 to-brand-300/40 blur-xl opacity-75 group-hover:opacity-100 transition duration-500 pointer-events-none"
+        className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-brand-600/30 via-brand-400/20 to-accent-600/20 blur-xl opacity-75 group-hover:opacity-100 transition duration-500 pointer-events-none"
         aria-hidden="true"
       />
 
@@ -52,7 +52,7 @@ export default function HeroVideo() {
         {/* Subtle Top Status Bar */}
         <div className="px-4 py-2.5 bg-brand-950/95 border-b border-brand-800/80 flex items-center justify-between text-xs text-brand-200">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-accent-500 animate-pulse" />
             <span className="font-semibold tracking-wide uppercase text-[11px] text-brand-100">
               Doctor Consultation • Live Looping Stream
             </span>
@@ -64,12 +64,12 @@ export default function HeroVideo() {
           >
             {isMuted ? (
               <>
-                <VolumeX className="w-3.5 h-3.5 text-emerald-400" />
+                <VolumeX className="w-3.5 h-3.5 text-brand-400" />
                 <span>Muted</span>
               </>
             ) : (
               <>
-                <Volume2 className="w-3.5 h-3.5 text-emerald-400" />
+                <Volume2 className="w-3.5 h-3.5 text-brand-400" />
                 <span>Audio On</span>
               </>
             )}
@@ -105,8 +105,8 @@ export default function HeroVideo() {
           <div className="absolute bottom-12 left-0 right-0 h-6 opacity-60 pointer-events-none overflow-hidden z-10 flex items-center">
             <svg
               viewBox="0 0 500 30"
-              className="w-full h-6 stroke-emerald-400 fill-none"
-              style={{ strokeWidth: "1.5", filter: "drop-shadow(0 0 3px #34d399)" }}
+              className="w-full h-6 stroke-brand-400 fill-none"
+              style={{ strokeWidth: "1.5", filter: "drop-shadow(0 0 3px #38C2E5)" }}
             >
               <path d="M0,15 L120,15 L125,5 L130,25 L135,8 L140,20 L145,15 L300,15 L305,5 L310,25 L315,8 L320,20 L325,15 L500,15" />
             </svg>
@@ -115,7 +115,7 @@ export default function HeroVideo() {
           {/* Overlay Content / Badge */}
           <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between pointer-events-none z-10">
             <div className="space-y-1 bg-brand-950/85 backdrop-blur-md px-3 py-1.5 rounded-lg border border-brand-500/30">
-              <div className="inline-flex items-center gap-1.5 text-emerald-300 text-[10px] font-semibold uppercase">
+              <div className="inline-flex items-center gap-1.5 text-brand-300 text-[10px] font-semibold uppercase">
                 <Sparkles className="w-3 h-3" />
                 <span>{activeScene.title}</span>
               </div>
@@ -123,13 +123,13 @@ export default function HeroVideo() {
                 {SITE_NAME}
               </div>
               <div className="text-[11px] text-brand-200/90 flex items-center gap-1.5 font-mono">
-                <HeartPulse className="w-3 h-3 text-red-400 animate-pulse" />
+                <HeartPulse className="w-3 h-3 text-accent-500 animate-pulse" />
                 <span>{activeScene.vitals}</span>
               </div>
             </div>
 
             <div className="w-9 h-9 rounded-full bg-brand-800/90 border border-brand-400/60 backdrop-blur-sm flex items-center justify-center text-white shadow-lg shrink-0">
-              <Video className="w-4 h-4 text-emerald-200" />
+              <Video className="w-4 h-4 text-brand-200" />
             </div>
           </div>
         </div>
@@ -137,10 +137,10 @@ export default function HeroVideo() {
         {/* Bottom Reassurance Footer */}
         <div className="px-4 py-2 bg-brand-950/95 border-t border-brand-900 flex items-center justify-between text-[11px] text-brand-300/80">
           <span className="flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+            <ShieldCheck className="w-3.5 h-3.5 text-brand-400" />
             Live Clinic &amp; Consultation Stream
           </span>
-          <span className="text-emerald-400 font-mono text-[10px] flex items-center gap-1">
+          <span className="text-brand-400 font-mono text-[10px] flex items-center gap-1">
             <Activity className="w-3 h-3 animate-pulse" /> 1080p 60FPS
           </span>
         </div>
